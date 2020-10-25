@@ -18,9 +18,11 @@ public class SocketHandler implements Runnable{
         try {
 
             DataInputStream in= new DataInputStream(socket.getInputStream());
-            System.out.println("something goes wrong");
-            //OutputStreamWriter out=new OutputStreamWriter(socket.getOutputStream());
+            DataOutputStream out=new DataOutputStream(socket.getOutputStream());
             System.out.println("here is the number that have been sent"+in.readUTF());
+            out.writeUTF("hi from the other instance of the application");
+
+
         } catch (IOException e) {
             System.out.println("something goes wrong");
             e.printStackTrace();
