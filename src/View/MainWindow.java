@@ -1,10 +1,8 @@
 package View;
 
-import Controller.MessageListener;
 import Network.CreateServer;
 import Network.CreateShot;
 import Network.EndPoint;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -14,14 +12,14 @@ import java.io.IOException;
 public class MainWindow  {
 
     private Stage window;
-    Button button;
-    BattleShipLabel label;
+    //Button button;
+    BattleShipButton label;
 
 
     public MainWindow(Stage window){
         this.window=window;
-        this.button=new Button("sent shot");
-        this.label=new BattleShipLabel();
+       // this.button=new Button("sent shot");
+        this.label=new BattleShipButton();
 
     }
     public void display() {
@@ -33,7 +31,7 @@ public class MainWindow  {
         window.setScene(scene);
 
         window.show();
-        button.setOnAction(e -> {
+       label.setOnAction(e -> {
             new CreateShot();
 
         });
