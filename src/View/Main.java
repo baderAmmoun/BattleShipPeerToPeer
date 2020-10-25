@@ -11,7 +11,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainWindow mainWindow=new MainWindow(primaryStage);
+        MainWindow mainWindow=new MainWindow(primaryStage,new FleeView(3,3));
         mainWindow.display();
         mainWindow.CreateSocketServer(new Game());
     }
