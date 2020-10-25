@@ -1,0 +1,7 @@
+*.class
+out/
+/classpath
+bin/
+BattleShipPeerToPeerArcheticture.iml
+/.idea
+
