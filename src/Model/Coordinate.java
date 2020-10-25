@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements Serializable {
     private final int xCoordinate;
     private final int yCoordinate;
     public Coordinate(int xCoordinate,int yCoordinate){

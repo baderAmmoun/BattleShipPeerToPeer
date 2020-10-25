@@ -7,8 +7,10 @@ import java.net.Socket;
 public class SocketHandler implements Runnable{
 
     private Socket socket;
-    public SocketHandler(Socket socket){
+    private EndPoint endPoint;
+    public SocketHandler(Socket socket,EndPoint endPoint){
         this.socket=socket;
+        this.endPoint=endPoint;
 
     }
     @Override
@@ -19,7 +21,8 @@ public class SocketHandler implements Runnable{
 
             DataInputStream in= new DataInputStream(socket.getInputStream());
             DataOutputStream out=new DataOutputStream(socket.getOutputStream());
-            System.out.println("here is the number that have been sent"+in.readUTF());
+            //System.out.println("here is the number that have been sent"+in.readUTF());
+            endPoint.onCommand(in.readUTF());
             out.writeUTF("hi from the other instance of the application");
 
 

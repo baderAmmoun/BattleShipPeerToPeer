@@ -1,35 +1,34 @@
 package View;
 
+import Controller.MessageListener;
 import Network.CreateServer;
 import Network.CreateShot;
-import Network.SocketHandler;
-import javafx.scene.Node;
+import Network.EndPoint;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class MainWindow {
+public class MainWindow  {
 
     private Stage window;
     Button button;
+    BattleShipLabel label;
+
 
     public MainWindow(Stage window){
         this.window=window;
         this.button=new Button("sent shot");
+        this.label=new BattleShipLabel();
 
     }
     public void display() {
 
         StackPane layout = new StackPane();
-        layout.getChildren().add(button);
+        layout.getChildren().add(label);
+        //layout.getChildren().add(button);
         Scene scene=new Scene(layout,200,200);
         window.setScene(scene);
 
@@ -41,13 +40,18 @@ public class MainWindow {
     }
 
 
-    public void CreateSocketServer() throws IOException {
+    public void CreateSocketServer(EndPoint endPoint) throws IOException {
+
+
+        endPoint.registerListener(label);
 
         CreateServer server=new CreateServer();
+        server.registerEndPoint(endPoint);
         server.start();
 
 
 
 
     }
+
 }

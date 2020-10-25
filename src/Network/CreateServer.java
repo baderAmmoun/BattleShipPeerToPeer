@@ -9,7 +9,10 @@ import java.util.concurrent.Executors;
 public class CreateServer extends Thread {
     private ServerSocket serverSocket;
     private ExecutorService executorService;
-
+    private EndPoint endPoint;
+    public void registerEndPoint(EndPoint endPoint){
+        this.endPoint=endPoint;
+    }
     public void run() {
         try {
             System.out.println("the server has been created");
@@ -23,7 +26,7 @@ public class CreateServer extends Thread {
             try {
                 System.out.println("the server is waiting for client.......");
                 Socket client=serverSocket.accept();
-                executorService.execute(new SocketHandler(client));
+                executorService.execute(new SocketHandler(client,endPoint));
 
             } catch (IOException e) {
                 e.printStackTrace();

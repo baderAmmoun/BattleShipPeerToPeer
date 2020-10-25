@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Game;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,6 +13,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         MainWindow mainWindow=new MainWindow(primaryStage);
         mainWindow.display();
-        mainWindow.CreateSocketServer();
+        mainWindow.CreateSocketServer(new Game());
     }
 }
