@@ -2,19 +2,12 @@ package View;
 
 import Network.CreateServer;
 import Network.CreateShot;
-import Network.SocketHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class MainWindow {
 
