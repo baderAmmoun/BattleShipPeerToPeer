@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class MainWindow {
     private Stage window;
     BattleShipPanelFactory factory;
