@@ -4,8 +4,8 @@ public class Ship {
     private final Coordinate coordinate;
     private Fleet fleet;
 
-    public Ship(int xCoordinate,int yCoordinate){
-        this.coordinate=new Coordinate(xCoordinate,yCoordinate);
+    public Ship(Coordinate coordinate) {
+        this.coordinate =coordinate;
 
     }
 
@@ -13,15 +13,15 @@ public class Ship {
         return coordinate;
     }
 
-    public int[] shoot(Coordinate coordinate){
+    public int[] shoot(Coordinate coordinate) {
 
-        return new int[]{this.coordinate.getxCoordinate(),this.coordinate.getyCoordinate()};
+        return new int[]{this.coordinate.getxCoordinate(), this.coordinate.getyCoordinate()};
 
     }
-    public void setFleet(Fleet fleet){
-        this.fleet=fleet;
-    }
 
+    public void setFleet(Fleet fleet) {
+        this.fleet = fleet;
+    }
 
 
 }

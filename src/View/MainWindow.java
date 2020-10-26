@@ -3,16 +3,18 @@ package View;
 import Network.CreateServer;
 import Network.EndPoint;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
-public class MainWindow  {
+public class MainWindow {
     private Stage window;
     BattleShipPanelFactory factory;
 
-    public MainWindow(Stage window,BattleShipPanelFactory factory){
-        this.window=window;
-        this.factory=factory;
+    public MainWindow(Stage window, BattleShipPanelFactory factory) {
+        this.window = window;
+        this.factory = factory;
     }
+
     public void display() {
         factory.createFleetView();
         factory.createAttackView();
@@ -30,11 +32,9 @@ public class MainWindow  {
 
         //endPoint.registerListener(label);
 
-        CreateServer server=new CreateServer();
+        CreateServer server = new CreateServer();
         server.registerEndPoint(endPoint);
         server.start();
-
-
 
 
     }

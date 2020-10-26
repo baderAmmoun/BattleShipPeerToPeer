@@ -6,9 +6,10 @@ import java.util.Objects;
 public class Coordinate implements Serializable {
     private final int xCoordinate;
     private final int yCoordinate;
-    public Coordinate(int xCoordinate,int yCoordinate){
-        this.xCoordinate=xCoordinate;
-        this.yCoordinate=yCoordinate;
+
+    public Coordinate(int xCoordinate, int yCoordinate) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
     }
 
     public int getxCoordinate() {

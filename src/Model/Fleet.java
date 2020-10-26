@@ -1,4 +1,5 @@
 package Model;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -6,41 +7,46 @@ import java.util.List;
 public class Fleet {
     private List<Ship> aliveShips;
     private List<Ship> destroyedShips;
-    public Fleet(){
-        aliveShips=new ArrayList<>();
-        destroyedShips=new ArrayList<>();
+
+    public Fleet() {
+        aliveShips = new ArrayList<>();
+        destroyedShips = new ArrayList<>();
     }
 
-    public void addShip(int xCoordinate,int yCoordinate){
+    public void addShip(Coordinate coordinate) {
 
-        Ship ship =new Ship(xCoordinate,yCoordinate);
+        Ship ship = new Ship(coordinate);
         aliveShips.add(ship);
 
     }
-    public void addShip(Ship ship){
+
+    public void addShip(Ship ship) {
         aliveShips.add(ship);
         ship.setFleet(this);
     }
-    public int getNumberOfDestroyedShips(){
+
+    public int getNumberOfDestroyedShips() {
         return destroyedShips.size();
     }
-    public List<Ship> getDestroyedShips(){
-        return  destroyedShips;
+
+    public List<Ship> getDestroyedShips() {
+        return destroyedShips;
     }
 
-    public Ship isShipThere(Coordinate coordinate){
-        Iterator iterator=aliveShips.iterator();
-        while (iterator.hasNext()){
-         Ship ship= (Ship)iterator.next();
-         Coordinate shipCoordinate=ship.getCoordinate();
-         if(coordinate.equals(coordinate))
-             return ship;
+    public Ship isShipThere(Coordinate coordinate) {
+        Iterator iterator = aliveShips.iterator();
+        while (iterator.hasNext()) {
+            Ship ship = (Ship) iterator.next();
+            Coordinate shipCoordinate = ship.getCoordinate();
+            if (coordinate.equals(coordinate))
+                return ship;
         }
         return null;
     }
-    public void beingAttacked(Coordinate coordinate){
-        Ship ship=this.isShipThere(coordinate);
-        if(ship!=null){
+
+    public void beingAttacked(Coordinate coordinate) {
+        Ship ship = this.isShipThere(coordinate);
+        if (ship != null) {
             aliveShips.remove(ship);
             destroyedShips.add(ship);
         }
