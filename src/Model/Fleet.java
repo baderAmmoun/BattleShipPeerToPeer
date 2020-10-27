@@ -53,10 +53,12 @@ public class Fleet {
         while (iterator.hasNext()) {
             Ship ship = (Ship) iterator.next();
             Coordinate shipCoordinate = ship.getCoordinate();
-            if (coordinate.equals(coordinate))
-                map.put(true,ship);
+            if (coordinate.equals(shipCoordinate)) {
+                map.put(true, ship);
+                System.out.println("I find ship here");
+            }
         }
-        map.put(true,null) ;
+        map.put(false,null) ;
         return map;
     }
 
