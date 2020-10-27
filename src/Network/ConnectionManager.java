@@ -1,5 +1,6 @@
 package Network;
 
+import Controller.CounterReciever;
 import Model.Attack;
 
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class ConnectionManager {
                 Attack attack = (Attack) in.readObject();
                 System.out.println(attack.getPlayer());
 
-                Thread thread = new Thread();
+                Thread thread = new Thread(new CallBack(attack,new CounterReciever()));
                 thread.start();
 
             } catch (Exception w) {

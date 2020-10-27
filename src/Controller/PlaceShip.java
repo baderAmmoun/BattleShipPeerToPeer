@@ -9,7 +9,7 @@ public class PlaceShip {
     private Fleet fleet;
     private TowerControl control;
     public PlaceShip(){
-        this.fleet=new Fleet();
+        this.fleet=Fleet.getFleet();
 
     }
 
@@ -23,7 +23,7 @@ public class PlaceShip {
         Ship ship=new Ship(coordinate);
         this.fleet.addShip(ship);
         this.control.OnAction();
-        this.control.changeColor();
+       // this.control.changeColor("blue");
 
 
     }

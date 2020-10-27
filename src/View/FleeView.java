@@ -1,15 +1,23 @@
 package View;
 
 import Controller.PlaceShip;
+import Controller.TowerControl;
 import Model.Attack;
+import Model.Fleet;
 import Network.ConnectionManager;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+import java.awt.*;
 
-public class FleeView implements BattleShipPanelFactory {
+
+public class FleeView implements BattleShipPanelFactory, TowerControl {
 
     private BorderPane layout;
     private int numRows;
@@ -21,6 +29,8 @@ public class FleeView implements BattleShipPanelFactory {
         this.numRows = numRows;
         this.numCols = numCols;
         this.placeShip = new PlaceShip();
+        Fleet fleet=Fleet.getFleet();
+        fleet.registerTower(this);
     }
 
     @Override
@@ -82,6 +92,29 @@ public class FleeView implements BattleShipPanelFactory {
         grid.add(ship, numRows, numCols);
         numCols++;
         this.placeShips(numRows, numCols, isShout, grid);
+
+
+    }
+
+    @Override
+    public void OnAction() {
+
+    }
+
+    @Override
+    public void changeColor(String color,int x, int y) {
+        GridPane grade=(GridPane) this.layout.getLeft();
+        FilteredList<Node> currentNode=grade.getChildren().filtered((node)->{
+          if(GridPane.getRowIndex(node)==x&& GridPane.getColumnIndex(node)==y);
+          return true;
+        });
+        currentNode.get(0).setStyle("-fx-background-color:"+color);
+
+        Platform.runLater(() ->System.out.println(color));
+    }
+
+    @Override
+    public void attack() {
 
     }
 }
