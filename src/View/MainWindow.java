@@ -1,7 +1,6 @@
 package View;
 
-import Network.CreateServer;
-import Network.EndPoint;
+import Network.Server;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,13 +27,13 @@ public class MainWindow {
     }
 
 
-    public void CreateSocketServer(EndPoint endPoint) throws IOException {
+    public void CreateSocketServer() throws IOException {
 
 
         //endPoint.registerListener(label);
 
-        CreateServer server = new CreateServer();
-        server.registerEndPoint(endPoint);
+        Server server = new Server();
+        //server.registerEndPoint(endPoint);
         server.start();
 
 

@@ -39,4 +39,9 @@ public class BattleShipButton extends Button implements TowerControl {
         Platform.runLater(() -> this.setStyle("-fx-background-color: blue"));
 
     }
+
+    @Override
+    public void attack() {
+
+    }
 }

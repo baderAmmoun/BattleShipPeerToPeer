@@ -1,6 +1,8 @@
 package View;
 
 import Controller.PlaceShip;
+import Model.Attack;
+import Network.ConnectionManager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -70,6 +72,11 @@ public class FleeView implements BattleShipPanelFactory {
                 this.placeShip.registerTower(ship);
                 this.placeShip.placeShipe(ship.getXcoordinate(), ship.getyCoordinate());
             }
+            else{
+                ConnectionManager.getConnectionManger().sendMessage(new Attack(ship.getXcoordinate(),ship.getyCoordinate(),"bader"),888);
+
+            }
+
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);
         grid.add(ship, numRows, numCols);

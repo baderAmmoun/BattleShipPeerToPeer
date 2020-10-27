@@ -5,7 +5,7 @@ import Model.Coordinate;
 
 public interface EndPoint {
 
-    public void onCommand(String s);
+    public String onCommand();
 
-    public void registerListener(MessageListener messageListener);
+    public void onAction(String s);
 }
