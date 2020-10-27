@@ -9,11 +9,11 @@ import Network.EndPoint;
 import java.util.Map;
 
 public class CounterReciever implements EndPoint {
-   // TowerControl control;
 
-    public void registerTower(){
-      //  this.control=control;
+    public static void registerTowerControll(TowerControl towerControl){
+        Fleet.getFleet().registerTower(towerControl);
     }
+
     @Override
     public String onCommand(Attack attack) {
         Fleet fleet=Fleet.getFleet();

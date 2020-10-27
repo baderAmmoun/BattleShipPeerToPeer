@@ -1,20 +1,17 @@
 package View;
 
+import Controller.CounterReciever;
 import Controller.PlaceShip;
 import Controller.TowerControl;
 import Model.Attack;
-import Model.Fleet;
 import Network.ConnectionManager;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-
-import java.awt.*;
 
 
 public class FleeView implements BattleShipPanelFactory, TowerControl {
@@ -23,14 +20,12 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
     private int numRows;
     private int numCols;
     private PlaceShip placeShip;
-
     public FleeView(int numRows, int numCols) {
         this.layout = new BorderPane();
         this.numRows = numRows;
         this.numCols = numCols;
         this.placeShip = new PlaceShip();
-        Fleet fleet=Fleet.getFleet();
-        fleet.registerTower(this);
+        CounterReciever.registerTowerControll(this);
     }
 
     @Override
