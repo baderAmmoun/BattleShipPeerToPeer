@@ -5,7 +5,6 @@ import Controller.PlaceShip;
 import Controller.TowerControl;
 import Model.Attack;
 import Network.ConnectionManager;
-import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -33,13 +32,11 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
     @Override
     public void createFleetView() {
 
-
         GridPane gridFleet = new GridPane();
         gridFleet.setPadding((new Insets(10, 10, 10, 10)));
         gridFleet.setVgap(8);
         gridFleet.setHgap(10);
         this.placeShips(0, 0, false, gridFleet);
-
     }
 
     @Override
@@ -81,16 +78,12 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
             }
             else{
                 ConnectionManager.getConnectionManger().sendMessage(new Attack(ship.getXcoordinate(),ship.getyCoordinate(),"bader"),888);
-
             }
-
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);
         grid.add(ship, numRows, numCols);
         numCols++;
         this.placeShips(numRows, numCols, isShout, grid);
-
-
     }
 
     @Override
@@ -111,12 +104,10 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
             BattleShipButton battleShipButton=(BattleShipButton) iterator.next();
             if(battleShipButton.getXcoordinate()==x && battleShipButton.getyCoordinate()==y){
 
-                battleShipButton.setStyle("-fx-background-color:"+color);
+                battleShipButton.setStyle("-fx-background-color:" + color);
             }
-                    }
-        //currentNode.get(0).setStyle("-fx-background-color:"+color);
+        }
 
-        Platform.runLater(() ->System.out.println(color));
     }
 
     @Override

@@ -14,7 +14,8 @@ public class PlaceShip {
     }
 
     public void registerTower(TowerControl towerControl){
-        this.control=towerControl;
+
+       fleet.registerAlliesTowers(towerControl);
     }
 
     public void placeShipe(int xcordinate,int yCoordinate){
@@ -22,7 +23,7 @@ public class PlaceShip {
         Coordinate coordinate=new Coordinate(xcordinate,yCoordinate);
         Ship ship=new Ship(coordinate);
         this.fleet.addShip(ship);
-        this.control.OnAction();
+
        // this.control.changeColor("blue");
 
 

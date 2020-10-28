@@ -11,7 +11,7 @@ import java.util.Map;
 public class CounterReciever implements EndPoint {
 
     public static void registerTowerControll(TowerControl towerControl){
-        Fleet.getFleet().registerTower(towerControl);
+        Fleet.getFleet().registerEnemiesTower(towerControl);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CounterReciever implements EndPoint {
         Map<Boolean, Ship> map=fleet.isShipThere(coordinate);
         if(map.containsKey(true)){
             fleet.beingAttacked(map.get(true));
-            fleet.NotifyAll("black", attack.getX(), attack.getY());
+            fleet.notifyEnemiesTowers("black", attack.getX(), attack.getY());
         }
 
         return "fff";

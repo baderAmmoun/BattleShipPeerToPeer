@@ -10,12 +10,14 @@ public class Fleet {
 
     private List<Ship> aliveShips;
     private List<Ship> destroyedShips;
-    private List<TowerControl> towerControlList;
+    private List<TowerControl> enemiesTowers;
+    private List<TowerControl> alliesTowers;
 
     private Fleet() {
         aliveShips = new ArrayList<>();
         destroyedShips = new ArrayList<>();
-        towerControlList =new ArrayList<>();
+        enemiesTowers =new ArrayList<>();
+        alliesTowers=new ArrayList<>();
     }
     public static Fleet getFleet(){
 
@@ -23,20 +25,28 @@ public class Fleet {
             fleet=new Fleet();
         return fleet;
     }
-    public void registerTower(TowerControl towerControl){
-        this.towerControlList.add(towerControl);
+    public void registerEnemiesTower(TowerControl towerControl){
+        this.enemiesTowers.add(towerControl);
+    }
+    public void registerAlliesTowers(TowerControl towerControl){
+        this.alliesTowers.add(towerControl);
     }
 
     public void addShip(Coordinate coordinate) {
 
         Ship ship = new Ship(coordinate);
         aliveShips.add(ship);
+        ship.setFleet(this);
+        this.notifyAlliesTowers("blue",coordinate.getxCoordinate(),coordinate.getyCoordinate());
+
 
     }
 
     public void addShip(Ship ship) {
         aliveShips.add(ship);
         ship.setFleet(this);
+        this.notifyAlliesTowers("blue",ship.getCoordinate().getxCoordinate(),
+                ship.getCoordinate().getyCoordinate());
     }
 
     public int getNumberOfDestroyedShips() {
@@ -68,8 +78,8 @@ public class Fleet {
             destroyedShips.add(ship);
         }
 
-        public void NotifyAll(String color,int x,int y){
-        Iterator iterator=towerControlList.iterator();
+        public void notifyEnemiesTowers(String color, int x, int y){
+        Iterator iterator= enemiesTowers.iterator();
         while (iterator.hasNext()){
 
             TowerControl towerControl=(TowerControl)iterator.next();
@@ -78,6 +88,16 @@ public class Fleet {
         }
 
         }
+    public void notifyAlliesTowers(String color, int x, int y){
+        Iterator iterator= alliesTowers.iterator();
+        while (iterator.hasNext()){
+
+            TowerControl towerControl=(TowerControl)iterator.next();
+            towerControl.OnAction();
+            towerControl.changeColor(color,x,y);
+        }
+
+    }
 
     }
 
