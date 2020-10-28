@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+import java.util.Iterator;
+
 
 public class FleeView implements BattleShipPanelFactory, TowerControl {
 
@@ -103,7 +105,16 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
           if(GridPane.getRowIndex(node)==x&& GridPane.getColumnIndex(node)==y);
           return true;
         });
-        currentNode.get(0).setStyle("-fx-background-color:"+color);
+        Iterator iterator =currentNode.iterator();
+        while (iterator.hasNext()){
+
+            BattleShipButton battleShipButton=(BattleShipButton) iterator.next();
+            if(battleShipButton.getXcoordinate()==x && battleShipButton.getyCoordinate()==y){
+
+                battleShipButton.setStyle("-fx-background-color:"+color);
+            }
+                    }
+        //currentNode.get(0).setStyle("-fx-background-color:"+color);
 
         Platform.runLater(() ->System.out.println(color));
     }

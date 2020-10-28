@@ -9,12 +9,6 @@ import java.util.concurrent.Executors;
 public class Server extends Thread {
     private ServerSocket serverSocket;
     private ExecutorService executorService;
-    private EndPoint endPoint;
-
-    public void registerEndPoint(EndPoint endPoint) {
-        this.endPoint = endPoint;
-    }
-
     public void run() {
         try {
             int port=889;
@@ -29,9 +23,7 @@ public class Server extends Thread {
             try {
                 System.out.println("the server is waiting for client.......");
                 Socket client = serverSocket.accept();
-                System.out.println("");
                 executorService.execute(new SocketHandler(client));
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
