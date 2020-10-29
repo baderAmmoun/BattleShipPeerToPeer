@@ -6,13 +6,13 @@ public class Request implements Serializable {
     private static final long serialVersionUID = 4L;
     private final int x;
     private final int y;
-    private final String SenderPlayer;
-    private final String ReceiverPlayer;
+    private final String senderPlayer;
+    private final String receiverPlayer;
     public Request(int x, int y, String SenderPlayer,String ReceiverPlayer) {
         this.x = x;
         this.y = y;
-        this.SenderPlayer = SenderPlayer;
-        this.ReceiverPlayer=ReceiverPlayer;
+        this.senderPlayer = SenderPlayer;
+        this.receiverPlayer =ReceiverPlayer;
     }
 
     public int getX() {
@@ -24,11 +24,11 @@ public class Request implements Serializable {
     }
 
     public String getSenderPlayer() {
-        return SenderPlayer;
+        return senderPlayer;
     }
 
     public String getReceiverPlayer() {
-        return ReceiverPlayer;
+        return receiverPlayer;
     }
 }
 
