@@ -1,10 +1,12 @@
 package Network;
 
+import Controller.CounterReciever;
+
 public class CallBack implements Runnable {
 
     private BattleShipProtocol protocol;
-    public CallBack(BattleShipProtocol protocol,Request request ) {
-        this.protocol=protocol;
+    public CallBack(Request request ) {
+        this.protocol=new CounterReciever();
         protocol.injectRequest(request);
     }
 

@@ -85,7 +85,7 @@ public class ConnectionManager {
                 Request request = (Request) in.readObject();
                 System.out.println(request.getPlayer());
 
-                Thread thread = new Thread(new CallBack(new CounterReciever(),request));
+                Thread thread = new Thread(new CallBack(request));
                 thread.start();
 
             } catch (Exception w) {
