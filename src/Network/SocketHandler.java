@@ -5,12 +5,11 @@ import java.net.Socket;
 public class SocketHandler implements Runnable {
 
     private Socket socket;
-    private EndPoint endPoint;
+
 
     public SocketHandler(Socket socket) {
         this.socket = socket;
-        this.endPoint = endPoint;
-        // ConnectionManager.getConnectionManger().addSocket(socket);
+
     }
 
     @Override

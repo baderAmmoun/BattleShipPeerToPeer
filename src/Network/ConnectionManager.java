@@ -1,7 +1,7 @@
 package Network;
 
 import Controller.CounterReciever;
-import Model.Attack;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

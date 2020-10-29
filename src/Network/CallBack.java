@@ -2,7 +2,6 @@ package Network;
 
 public class CallBack implements Runnable {
 
-    private Request request;
     private BattleShipProtocol protocol;
     public CallBack(BattleShipProtocol protocol,Request request ) {
         this.protocol=protocol;
