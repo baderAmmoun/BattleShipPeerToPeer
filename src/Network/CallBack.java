@@ -1,19 +1,17 @@
 package Network;
 
-import Model.Attack;
-
 public class CallBack implements Runnable {
 
-    private Attack attack;
-    private EndPoint endPoint;
-    public CallBack(Attack attack,EndPoint endPoint) {
-        this.endPoint=endPoint;
-        this.attack = attack;
+    private Request request;
+    private BattleShipProtocol protocol;
+    public CallBack(BattleShipProtocol protocol,Request request ) {
+        this.protocol=protocol;
+        protocol.injectRequest(request);
     }
 
     @Override
     public void run() {
-        endPoint.onCommand(attack);
+        protocol.handleRequest(protocol.getRequest());
 
     }
 }

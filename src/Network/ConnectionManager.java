@@ -52,19 +52,19 @@ public class ConnectionManager {
         }
     }
 
-    public void sendMessage(Attack attack, int port) {
-        Socket socket = sockets.get(attack.getPlayer());
+    public void sendMessage(Request request, int port) {
+        Socket socket = sockets.get(request.getPlayer());
         System.out.println("liten I will send the messahe right now but first i have to check if the socjet is here");
-        System.out.println(sockets.get(attack.getPlayer()));
+        System.out.println(sockets.get(request.getPlayer()));
         try {
             if (socket == null) {
 
                 System.out.println("the request have been send to the port" + port);
                 socket = new Socket("localhost", port);
-                sockets.put(attack.getPlayer(), socket);
+                sockets.put(request.getPlayer(), socket);
             }
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            out.writeObject(attack);
+            out.writeObject(request);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,10 +82,10 @@ public class ConnectionManager {
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
-                Attack attack = (Attack) in.readObject();
-                System.out.println(attack.getPlayer());
+                Request request = (Request) in.readObject();
+                System.out.println(request.getPlayer());
 
-                Thread thread = new Thread(new CallBack(attack,new CounterReciever()));
+                Thread thread = new Thread(new CallBack(new CounterReciever(),request));
                 thread.start();
 
             } catch (Exception w) {

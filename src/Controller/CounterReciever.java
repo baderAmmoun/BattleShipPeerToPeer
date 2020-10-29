@@ -4,31 +4,27 @@ import Model.Attack;
 import Model.Coordinate;
 import Model.Fleet;
 import Model.Ship;
+import Network.BattleShipProtocol;
 import Network.EndPoint;
+import Network.Request;
 
 import java.util.Map;
 
-public class CounterReciever implements EndPoint {
+public class CounterReciever extends BattleShipProtocol {
 
     public static void registerTowerControll(TowerControl towerControl){
         Fleet.getFleet().registerEnemiesTower(towerControl);
     }
-
     @Override
-    public String onCommand(Attack attack) {
+    public void handleRequest(Request request) {
+       System.out.println("here by the real implementation of the handle request ");
         Fleet fleet=Fleet.getFleet();
-        Coordinate coordinate=new Coordinate(attack.getX(),attack.getY());
+        Coordinate coordinate=new Coordinate(request.getX(),request.getY());
         Map<Boolean, Ship> map=fleet.isShipThere(coordinate);
         if(map.containsKey(true)){
             fleet.beingAttacked(map.get(true));
-            fleet.notifyEnemiesTowers("black", attack.getX(), attack.getY());
+            fleet.notifyEnemiesTowers("black", request.getX(), request.getY());
         }
-
-        return "fff";
-    }
-
-    @Override
-    public void onAction(String s) {
 
     }
 }
