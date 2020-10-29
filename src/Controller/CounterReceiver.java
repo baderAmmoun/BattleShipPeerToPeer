@@ -9,9 +9,9 @@ import Network.Respond;
 
 import java.util.Map;
 
-public class CounterReciever extends BattleShipProtocol {
+public class CounterReceiver extends BattleShipProtocol {
 
-    public static void registerTowerControll(TowerControl towerControl){
+    public static void registerTowerControl(TowerControl towerControl){
         Fleet.getFleet().registerEnemiesTower(towerControl);
     }
     @Override

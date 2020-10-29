@@ -1,6 +1,6 @@
 package View;
 
-import Controller.CounterReciever;
+import Controller.CounterReceiver;
 import Controller.PlaceShip;
 import Controller.TowerControl;
 import Network.ConnectionManager;
@@ -26,7 +26,7 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
         this.numRows = numRows;
         this.numCols = numCols;
         this.placeShip = new PlaceShip();
-        CounterReciever.registerTowerControll(this);
+        CounterReceiver.registerTowerControl(this);
     }
 
     @Override
