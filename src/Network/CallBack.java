@@ -12,7 +12,9 @@ public class CallBack implements Runnable {
 
     @Override
     public void run() {
-        protocol.handleRequest(protocol.getRequest());
+
+            protocol.handleRequest(protocol.getRequest());
+
 
     }
 }

@@ -3,7 +3,6 @@ package View;
 import Controller.CounterReciever;
 import Controller.PlaceShip;
 import Controller.TowerControl;
-import Model.Attack;
 import Network.ConnectionManager;
 import Network.Request;
 import javafx.collections.transformation.FilteredList;
@@ -78,7 +77,7 @@ public class FleeView implements BattleShipPanelFactory, TowerControl {
                 this.placeShip.placeShipe(ship.getXcoordinate(), ship.getyCoordinate());
             }
             else{
-                ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"bader"),888);
+                ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"bader2","bader"),888);
             }
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);

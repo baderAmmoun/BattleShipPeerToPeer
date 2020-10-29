@@ -18,5 +18,22 @@ public abstract class BattleShipProtocol {
         return respond;
     }
 
-    public abstract void  handleRequest(Request request);
+    public void handleRequest(Request request){
+        if (this.isStrike(request)) {
+            respond=new Respond(-1,-1,request.getReceiverPlayer(),request.getSenderPlayer());
+            handleStrikeRequest(request, respond);
+            ConnectionManager.getConnectionManger().sendRespond(respond);
+        }
+        else
+             this.respond=(Respond) request;
+            handleResultOfStrike(respond);
+
+    }
+
+    public abstract void handleStrikeRequest(Request request,Respond respond);
+    public abstract void handleResultOfStrike(Respond respond);
+    public boolean isStrike(Request request){
+
+        return ! (request.getX()==-1 && request.getY()==-1) ;
+    }
 }

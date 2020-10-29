@@ -1,7 +1,5 @@
 package Network;
 
-import Controller.CounterReciever;
-
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -53,15 +51,15 @@ public class ConnectionManager {
     }
 
     public void sendMessage(Request request, int port) {
-        Socket socket = sockets.get(request.getPlayer());
+        Socket socket = sockets.get(request.getSenderPlayer());
         System.out.println("liten I will send the messahe right now but first i have to check if the socjet is here");
-        System.out.println(sockets.get(request.getPlayer()));
+        System.out.println(sockets.get(request.getSenderPlayer()));
         try {
             if (socket == null) {
 
                 System.out.println("the request have been send to the port" + port);
                 socket = new Socket("localhost", port);
-                sockets.put(request.getPlayer(), socket);
+                sockets.put(request.getSenderPlayer(), socket);
             }
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(request);
@@ -69,6 +67,18 @@ public class ConnectionManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void sendRespond(Respond respond){
+        Socket socket = sockets.get(respond.getReceiverPlayer());
+        System.out.println(respond.getReceiverPlayer());
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            out.writeObject(respond);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void addSocket(Socket socket) {
@@ -83,7 +93,8 @@ public class ConnectionManager {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
                 Request request = (Request) in.readObject();
-                System.out.println(request.getPlayer());
+                sockets.put(request.getSenderPlayer(),socket);
+                System.out.println(request.getSenderPlayer());
 
                 Thread thread = new Thread(new CallBack(request));
                 thread.start();
