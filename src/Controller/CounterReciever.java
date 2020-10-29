@@ -1,11 +1,9 @@
 package Controller;
 
-import Model.Attack;
 import Model.Coordinate;
 import Model.Fleet;
 import Model.Ship;
 import Network.BattleShipProtocol;
-import Network.EndPoint;
 import Network.Request;
 import Network.Respond;
 
@@ -25,14 +23,14 @@ public class CounterReciever extends BattleShipProtocol {
         if(map.containsKey(true)){
             fleet.beingAttacked(map.get(true));
             fleet.notifyEnemiesTowers("black", request.getX(), request.getY());
-            respond.setMissed(false);
+            respond.setTargetHit(true);
         }
         else
-            respond.setMissed(true);
+            respond.setTargetHit(false);
     }
 
     @Override
     public void handleResultOfStrike(Respond respond) {
-       System.out.println(respond.isMissed());
+       System.out.println(respond.isTargetHit());
     }
 }
