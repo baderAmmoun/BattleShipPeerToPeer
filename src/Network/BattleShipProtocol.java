@@ -5,11 +5,6 @@ public abstract class BattleShipProtocol {
     private Request request;
     private Respond respond;
 
-
-    public void injectRequest(Request request){
-        this.request=request;
-    }
-
     public Request getRequest() {
         return request;
     }
@@ -18,22 +13,23 @@ public abstract class BattleShipProtocol {
         return respond;
     }
 
-    public void handleRequest(Request request){
-        if (this.isStrike(request)) {
+    public void handleRequest(ExchangeableMessage message){
+        if (this.isStrike(message)) {
+            this.request= (Request) message;
             respond=new Respond(-1,-1,request.getReceiverPlayer(),request.getSenderPlayer());
             handleStrikeRequest(request, respond);
             ConnectionManager.getConnectionManger().sendRespond(respond);
         }
         else
-             this.respond=(Respond) request;
+             this.respond=(Respond) message;
             handleResultOfStrike(respond);
 
     }
 
     public abstract void handleStrikeRequest(Request request,Respond respond);
     public abstract void handleResultOfStrike(Respond respond);
-    public boolean isStrike(Request request){
+    public boolean isStrike(ExchangeableMessage message){
 
-        return ! (request.getX()==-1 && request.getY()==-1) ;
+        return ! (message.getX()==-1 && message.getY()==-1) ;
     }
 }

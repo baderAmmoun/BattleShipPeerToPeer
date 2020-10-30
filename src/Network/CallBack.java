@@ -5,15 +5,17 @@ import Controller.CounterReceiver;
 public class CallBack implements Runnable {
 
     private BattleShipProtocol protocol;
-    public CallBack(Request request ) {
+    ExchangeableMessage message;
+    public CallBack(ExchangeableMessage message ) {
         this.protocol=new CounterReceiver();
-        protocol.injectRequest(request);
+        this.message=message;
+
     }
 
     @Override
     public void run() {
 
-            protocol.handleRequest(protocol.getRequest());
+            protocol.handleRequest(message);
 
 
     }
