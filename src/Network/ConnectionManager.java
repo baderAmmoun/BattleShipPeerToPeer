@@ -70,7 +70,7 @@ public class ConnectionManager {
     }
     public void sendRespond(Respond respond){
         Socket socket = sockets.get(respond.getReceiverPlayer());
-        System.out.println(respond.getReceiverPlayer());
+        System.out.println("I will send respond to the "+respond.getReceiverPlayer());
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(respond);
@@ -93,7 +93,8 @@ public class ConnectionManager {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
                 Request request = (Request) in.readObject();
-                sockets.put(request.getSenderPlayer(),socket);
+                if(!this.sockets.containsKey(request.getSenderPlayer()))
+                 sockets.put(request.getSenderPlayer(),socket);
                 System.out.println(request.getSenderPlayer());
 
                 Thread thread = new Thread(new CallBack(request));
