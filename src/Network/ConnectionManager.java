@@ -51,15 +51,15 @@ public class ConnectionManager {
     }
 
     public void sendMessage(Request request, int port) {
-        Socket socket = sockets.get(request.getSenderPlayer());
+        Socket socket = sockets.get(request.getEndpoint());
         System.out.println("liten I will send the messahe right now but first i have to check if the socjet is here");
-        System.out.println(sockets.get(request.getSenderPlayer()));
+        System.out.println(sockets.get(request.getEndpoint()));
         try {
             if (socket == null) {
 
                 System.out.println("the request have been send to the port" + port);
                 socket = new Socket("localhost", port);
-                sockets.put(request.getSenderPlayer(), socket);
+                sockets.put(request.getEndpoint(), socket);
             }
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(request);
@@ -69,7 +69,7 @@ public class ConnectionManager {
         }
     }
     public void sendRespond(Respond respond){
-        Socket socket = sockets.get(respond.getReceiverPlayer());
+        Socket socket = sockets.get(respond.getEndpoint());
         System.out.println("I will send respond to the "+respond.getReceiverPlayer());
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -93,9 +93,10 @@ public class ConnectionManager {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
                 Request request = (Request) in.readObject();
-                if(!this.sockets.containsKey(request.getSenderPlayer()))
-                 sockets.put(request.getSenderPlayer(),socket);
-                System.out.println(request.getSenderPlayer());
+                if(!this.sockets.containsKey(request.getEndpoint())) {
+                    sockets.put(request.getEndpoint(), socket);
+                }
+                System.out.println(request.getEndpoint());
 
                 Thread thread = new Thread(new CallBack(request));
                 thread.start();

@@ -20,7 +20,7 @@ public abstract class BattleShipProtocol {
 
     public void handleRequest() {
         if (this.isStrike(request)) {
-            respond = new Respond(-1, -1, request.getReceiverPlayer(), request.getSenderPlayer());
+            respond = new Respond(-1, -1, request.getReceiverPlayer(), request.getSenderPlayer(),request.getEndpoint());
             handleStrikeRequest(request, respond);
             ConnectionManager.getConnectionManger().sendRespond(respond);
         } else {

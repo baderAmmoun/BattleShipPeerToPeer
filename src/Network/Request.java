@@ -8,11 +8,13 @@ public class Request implements Serializable {
     private final int y;
     private final String senderPlayer;
     private final String receiverPlayer;
-    public Request(int x, int y, String SenderPlayer,String ReceiverPlayer) {
+    private final String endpoint;
+    public Request(int x, int y, String SenderPlayer,String ReceiverPlayer,String endpoint) {
         this.x = x;
         this.y = y;
         this.senderPlayer = SenderPlayer;
         this.receiverPlayer =ReceiverPlayer;
+        this.endpoint=endpoint;
     }
 
     public int getX() {
@@ -29,6 +31,10 @@ public class Request implements Serializable {
 
     public String getReceiverPlayer() {
         return receiverPlayer;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
     }
 }
 
