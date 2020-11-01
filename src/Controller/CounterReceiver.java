@@ -27,11 +27,14 @@ public class CounterReceiver extends BattleShipProtocol {
         }
         else
             respond.setTargetHit(false);
+
+        respond.setCountOfNeighborShip(fleet.countOfNeighborShip(coordinate));
     }
 
     @Override
     public void handleResultOfStrike(Respond respond) {
 
         System.out.println(respond.isTargetHit());
+        System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());
     }
 }

@@ -99,6 +99,26 @@ public class Fleet {
 
     }
 
+    public int countOfNeighborShip(Coordinate coordinate){
+        int counter=0;
+
+        Iterator iterator = aliveShips.iterator();
+        while (iterator.hasNext()) {
+            boolean xNeighbor=false;
+            boolean yNeighbor=false;
+            Ship ship = (Ship) iterator.next();
+            Coordinate shipCoordinate = ship.getCoordinate();
+            if (shipCoordinate.getxCoordinate() == coordinate.getxCoordinate() + 1 || shipCoordinate.getxCoordinate() == coordinate.getxCoordinate() - 1 || shipCoordinate.getxCoordinate() == coordinate.getxCoordinate())
+                xNeighbor=true;
+            if (shipCoordinate.getyCoordinate() == coordinate.getyCoordinate() + 1 || shipCoordinate.getyCoordinate() == coordinate.getyCoordinate() - 1|| shipCoordinate.getyCoordinate() == coordinate.getyCoordinate())
+                yNeighbor=true;
+            if(xNeighbor==true && yNeighbor==true)
+                counter++;
+        }
+        return counter;
+
+    }
+
     }
 
 
