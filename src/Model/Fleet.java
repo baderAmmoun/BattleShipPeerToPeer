@@ -1,18 +1,17 @@
 package Model;
 
 import Controller.TowerControl;
-
 import java.util.*;
 
 public class Fleet {
 
     private static Fleet fleet;
-
     private List<Ship> aliveShips;
     private List<Ship> destroyedShips;
     private List<TowerControl> enemiesTowers;
     private List<TowerControl> alliesTowers;
     private Roles roles;
+
     private Fleet() {
         aliveShips = new ArrayList<>();
         destroyedShips = new ArrayList<>();
@@ -40,8 +39,6 @@ public class Fleet {
         aliveShips.add(ship);
         ship.setFleet(this);
         this.notifyAlliesTowers("blue",coordinate.getxCoordinate(),coordinate.getyCoordinate());
-
-
     }
 
     public void addShip(Ship ship) {
@@ -55,7 +52,6 @@ public class Fleet {
         while(iterator.hasNext()){
             iterator.next().startGame();
         }
-
         }
     }
 
@@ -68,6 +64,7 @@ public class Fleet {
     }
 
     public Map<Boolean,Ship> isShipThere(Coordinate coordinate) {
+        this.roles.localAttempt();
         HashMap map=new HashMap<>();
         Iterator iterator = aliveShips.iterator();
         while (iterator.hasNext()) {
@@ -79,39 +76,40 @@ public class Fleet {
                 roles.destroyShip();
             }
         }
-        map.put(false,null) ;
+        map.put(false, null);
         return map;
     }
 
     public void beingAttacked(Ship ship) {
 
-            aliveShips.remove(ship);
-            destroyedShips.add(ship);
-        }
+        aliveShips.remove(ship);
+        destroyedShips.add(ship);
+    }
 
-        public void notifyEnemiesTowers(String color, int x, int y){
-        Iterator iterator= enemiesTowers.iterator();
-        while (iterator.hasNext()){
+    public void notifyEnemiesTowers(String color, int x, int y) {
+        Iterator iterator = enemiesTowers.iterator();
+        while (iterator.hasNext()) {
 
-            TowerControl towerControl=(TowerControl)iterator.next();
+            TowerControl towerControl = (TowerControl) iterator.next();
             towerControl.OnAction();
-            towerControl.changeColor(color,x,y);
-        }
-
-        }
-    public void notifyAlliesTowers(String color, int x, int y){
-        Iterator iterator= alliesTowers.iterator();
-        while (iterator.hasNext()){
-
-            TowerControl towerControl=(TowerControl)iterator.next();
-            towerControl.OnAction();
-            towerControl.changeColor(color,x,y);
+            towerControl.changeColor(color, x, y);
         }
 
     }
 
-    public int countOfNeighborShip(Coordinate coordinate){
-        int counter=0;
+    public void notifyAlliesTowers(String color, int x, int y) {
+        Iterator iterator = alliesTowers.iterator();
+        while (iterator.hasNext()) {
+
+            TowerControl towerControl = (TowerControl) iterator.next();
+            towerControl.OnAction();
+            towerControl.changeColor(color, x, y);
+        }
+
+    }
+
+    public int countOfNeighborShip(Coordinate coordinate) {
+        int counter = 0;
 
         Iterator iterator = aliveShips.iterator();
         while (iterator.hasNext()) {
@@ -137,9 +135,24 @@ public class Fleet {
     public boolean isGameStart(){
         return this.roles.startGame();
     }
-    public boolean isLocalIsReady(){
+    public boolean isLocalReady(){
         return this.roles.isLocalReady();
     }
+    public void increaseOpponentDestroyedShips(){
+        this.roles.destroyShip();
     }
+    public void increaseOpponentAttempt(){
+        this.roles.remoteAttempt();
+    }
+    public  boolean isGameEnd(){
+        return this.roles.endGame();
+    }
+    public boolean amIWin(){
+        return this.roles.amIWine();
+    }
+    public void increaseLocalAttempt(){
+        this.roles.localAttempt();
+    }
+}
 
 

@@ -8,7 +8,7 @@ public class ClassicRoles implements Roles {
     private int numAttempts;
     private boolean isOpponentReady;
     private boolean isLocalReady;
-
+    private int numRemoteAttempt;
     @Override
     public boolean isOpponentReady() {
       return isOpponentReady;
@@ -30,7 +30,7 @@ public class ClassicRoles implements Roles {
 
     @Override
     public boolean endGame() {
-        return (numAttempts== numberOfAttempts());
+        return (numAttempts== numberOfAttempts()&& numRemoteAttempt==numberOfAttempts());
     }
 
     @Override
@@ -59,7 +59,11 @@ public class ClassicRoles implements Roles {
     }
 
     @Override
-    public void attempt() {
+    public void localAttempt() {
         this.numAttempts++;
+    }
+    @Override
+    public void remoteAttempt() {
+        this.numRemoteAttempt++;
     }
 }

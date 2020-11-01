@@ -17,6 +17,9 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
         Fleet.getFleet().registerEnemiesTower(towerControl);
         Fleet.getFleet().registerRoles(new ClassicRoles());
     }
+    public static void increaseLocalAttempt(){
+        Fleet.getFleet().increaseLocalAttempt();
+    }
     @Override
     public void handleStrikeRequest(Request request,Respond respond) {
        System.out.println("here by the real implementation of the handle request ");
@@ -36,9 +39,15 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
     @Override
     public void handleResultOfStrike(Respond respond) {
+        Fleet.getFleet().increaseOpponentAttempt();
         BattleViewClassic.getInstance().NumNeighborShips(respond.getCountOfNeighborShip(),respond.getX(),respond.getY());
         BattleViewClassic.getInstance().increaseDestroyedShips(respond.isTargetHit());
-
+        if(respond.isTargetHit()){
+            Fleet.getFleet().increaseOpponentDestroyedShips();
+        }
+        if(Fleet.getFleet().isGameEnd()){
+            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+        }
 
         System.out.println(respond.isTargetHit());
         System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());

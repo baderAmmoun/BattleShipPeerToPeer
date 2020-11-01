@@ -146,6 +146,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
                 this.placeShip.placeShip(ship.getXcoordinate(), ship.getyCoordinate());
             }
             else{
+                BattleShipProtocol.increaseLocalAttempt();
                 ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"feras","bader"),888);
             }
         });
@@ -216,7 +217,23 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
     }
     @Override
     public void startGame(){
-        Platform.runLater(() ->this.layout.getRight().setDisable(false));
+        Platform.runLater(() ->
+        {
+            this.layout.getRight().setDisable(false);
+            this.layout.getLeft().setDisable(true);
+
+        });
+    }
+    public void EndGame(boolean amWin){
+
+        this.layout.getRight().setDisable(true);
+        Label result=new Label();
+        if(amWin){
+            result.setText("cong you win");
+        }
+        else
+            result.setText("game over");
+        layout.setBottom(result);
     }
 
 }

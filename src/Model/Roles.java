@@ -14,5 +14,6 @@ public interface Roles {
     public boolean amIWine();
     public void placeShip();
     public void destroyShip();
-    public void attempt();
+    public void localAttempt();
+    public void remoteAttempt();
 }
