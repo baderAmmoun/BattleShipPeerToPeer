@@ -9,7 +9,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainWindow mainWindow=new MainWindow(primaryStage,new FleeView(3,3));
+        MainWindow mainWindow=new MainWindow(primaryStage,BattleViewClassic.getInstance());
         mainWindow.display();
         mainWindow.CreateSocketServer();
     }

@@ -8,16 +8,17 @@ import java.io.IOException;
 
 public class MainWindow {
     private Stage window;
-    BattleShipPanelFactory factory;
+    BattleViewFactory factory;
 
-    public MainWindow(Stage window, BattleShipPanelFactory factory) {
+    public MainWindow(Stage window, BattleViewFactory factory) {
         this.window = window;
         this.factory = factory;
     }
 
     public void display() {
-        factory.createFleetView();
-        factory.createAttackView();
+        factory.createLocalFleetView();
+        factory.createAttackerView();
+        factory.createPanelInfoView();
         window.setScene(factory.getScene());
         window.show();
 //       label.setOnAction(e -> {
