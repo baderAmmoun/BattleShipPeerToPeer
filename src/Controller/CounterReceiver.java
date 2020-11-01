@@ -31,6 +31,7 @@ public class CounterReceiver extends BattleShipProtocol {
 
     @Override
     public void handleResultOfStrike(Respond respond) {
-       System.out.println(respond.isTargetHit());
+
+        System.out.println(respond.isTargetHit());
     }
 }

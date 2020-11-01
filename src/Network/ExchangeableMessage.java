@@ -1,20 +1,20 @@
 package Network;
 
+
 import java.io.Serializable;
 
-public abstract class ExchangeableMessage implements Serializable {
+public class ExchangeableMessage implements Serializable {
     private static final long serialVersionUID = 4L;
     private final int x;
     private final int y;
     private final String senderPlayer;
     private final String receiverPlayer;
-    public ExchangeableMessage(int x, int y,String senderPlayer,
-                               String receiverPlayer){
 
+    public ExchangeableMessage(int x, int y, String SenderPlayer, String ReceiverPlayer) {
         this.x = x;
         this.y = y;
-        this.senderPlayer = senderPlayer;
-        this.receiverPlayer =receiverPlayer;
+        this.senderPlayer = SenderPlayer;
+        this.receiverPlayer = ReceiverPlayer;
     }
 
     public int getX() {
@@ -33,3 +33,4 @@ public abstract class ExchangeableMessage implements Serializable {
         return receiverPlayer;
     }
 }
+
