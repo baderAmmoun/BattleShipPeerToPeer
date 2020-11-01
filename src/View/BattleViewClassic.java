@@ -82,22 +82,25 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         VBox vBox1=new VBox(10);
         vBox1.setPrefWidth(200);
         this.localPlayer=new Label();
-        this.intactShips=new Label("Number Of Intact Ships: \n "+"       12");
-        this.localPlayer.setText("Your name :\n "+" Bader");
+        Label constantIntact=new Label("The number of intact ships is :");
+        this.intactShips=new Label("0");
+        this.localPlayer.setText("Bader");
        this.decorateLabel(intactShips);
        this.decorateLabel(localPlayer);
+        this.decorateLabel(constantIntact);
         vBox1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        vBox1.getChildren().addAll(this.localPlayer,this.intactShips);
+        vBox1.getChildren().addAll(this.localPlayer,constantIntact,this.intactShips);
 
         VBox vBox2=new VBox(10);
         vBox2.setPrefWidth(200);
         this.remotePlayer=new Label();
-        this.destroyedOpponentShips=new Label("Number Of Destroyed Ships: \n "+"       12");
-        this.remotePlayer.setText("You play with  :\n "+" feras");
+        this.destroyedOpponentShips=new Label("0");
+        this.remotePlayer.setText("feras");
+        Label constantDestroy=new Label("the number of destroyed ships are");
         this.decorateLabel(remotePlayer);
         this.decorateLabel(destroyedOpponentShips);
         vBox2.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        vBox2.getChildren().addAll(this.remotePlayer,this.destroyedOpponentShips);
+        vBox2.getChildren().addAll(this.remotePlayer,constantDestroy,this.destroyedOpponentShips);
 
         HBox hBox=new HBox(90);
         hBox.getChildren().addAll(vBox1,vBox2);
@@ -194,6 +197,19 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
                );
             }
         }
+
+    }
+
+    public void increaseDestroyedShips(boolean isDestroyed){
+
+        if(isDestroyed){
+           Platform.runLater(()->{
+
+               int currentNumber= Integer.parseInt(this.destroyedOpponentShips.getText());
+               currentNumber++;
+               this.destroyedOpponentShips.setText(Integer.toString(currentNumber));
+           });
+       }
 
     }
 

@@ -35,6 +35,9 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
     @Override
     public void handleResultOfStrike(Respond respond) {
         BattleViewClassic.getInstance().NumNeighborShips(respond.getCountOfNeighborShip(),respond.getX(),respond.getY());
+        BattleViewClassic.getInstance().increaseDestroyedShips(respond.isTargetHit());
+
+
         System.out.println(respond.isTargetHit());
         System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());
     }
