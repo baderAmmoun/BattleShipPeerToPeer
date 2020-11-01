@@ -41,7 +41,7 @@ public class BattleShipButton extends Button implements TowerControl {
     }
 
     @Override
-    public void attack() {
+    public void startGame() {
 
     }
 }

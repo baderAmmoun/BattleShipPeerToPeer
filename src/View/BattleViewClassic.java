@@ -15,7 +15,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-
 import java.util.Iterator;
 
 
@@ -75,6 +74,8 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         gridAttackerPanel.setVgap(2);
         gridAttackerPanel.setHgap(3);
         this.placeShips(0, 0, true, gridAttackerPanel);
+        gridAttackerPanel.setDisable(true);
+
     }
 
     @Override
@@ -99,6 +100,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         Label constantDestroy=new Label("the number of destroyed ships are");
         this.decorateLabel(remotePlayer);
         this.decorateLabel(destroyedOpponentShips);
+        this.decorateLabel(constantDestroy);
         vBox2.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox2.getChildren().addAll(this.remotePlayer,constantDestroy,this.destroyedOpponentShips);
 
@@ -212,9 +214,9 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
        }
 
     }
-
     @Override
-    public void attack() {
-
+    public void startGame(){
+        Platform.runLater(() ->this.layout.getRight().setDisable(false));
     }
+
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ClassicRoles;
 import Model.Coordinate;
 import Model.Fleet;
 import Model.Ship;
@@ -14,6 +15,7 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
     public static void registerTowerControl(TowerControl towerControl){
         Fleet.getFleet().registerEnemiesTower(towerControl);
+        Fleet.getFleet().registerRoles(new ClassicRoles());
     }
     @Override
     public void handleStrikeRequest(Request request,Respond respond) {
@@ -40,5 +42,14 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
         System.out.println(respond.isTargetHit());
         System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());
+    }
+
+    @Override
+    public void startGame(Request request) {
+     Fleet.getFleet().setOpponentIsReady();
+     if(Fleet.getFleet().isGameStart())
+         BattleViewClassic.getInstance().startGame();
+
+
     }
 }

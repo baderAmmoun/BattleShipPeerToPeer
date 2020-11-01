@@ -12,7 +12,7 @@ public class Fleet {
     private List<Ship> destroyedShips;
     private List<TowerControl> enemiesTowers;
     private List<TowerControl> alliesTowers;
-
+    private Roles roles;
     private Fleet() {
         aliveShips = new ArrayList<>();
         destroyedShips = new ArrayList<>();
@@ -31,7 +31,9 @@ public class Fleet {
     public void registerAlliesTowers(TowerControl towerControl){
         this.alliesTowers.add(towerControl);
     }
-
+    public void registerRoles(Roles roles){
+        this.roles=roles;
+    }
     public void addShip(Coordinate coordinate) {
 
         Ship ship = new Ship(coordinate);
@@ -45,8 +47,16 @@ public class Fleet {
     public void addShip(Ship ship) {
         aliveShips.add(ship);
         ship.setFleet(this);
-        this.notifyAlliesTowers("blue",ship.getCoordinate().getxCoordinate(),
+        this.notifyAlliesTowers("blue", ship.getCoordinate().getxCoordinate(),
                 ship.getCoordinate().getyCoordinate());
+        this.roles.placeShip();
+        if (roles.startGame()) {
+            Iterator<TowerControl> iterator = this.enemiesTowers.iterator();
+        while(iterator.hasNext()){
+            iterator.next().startGame();
+        }
+
+        }
     }
 
     public int getNumberOfDestroyedShips() {
@@ -66,6 +76,7 @@ public class Fleet {
             if (coordinate.equals(shipCoordinate)) {
                 map.put(true, ship);
                 System.out.println("I find ship here");
+                roles.destroyShip();
             }
         }
         map.put(false,null) ;
@@ -119,6 +130,16 @@ public class Fleet {
 
     }
 
+    public void setOpponentIsReady(){
+        roles.setOpponent(true);
+    }
+
+    public boolean isGameStart(){
+        return this.roles.startGame();
+    }
+    public boolean isLocalIsReady(){
+        return this.roles.isLocalReady();
+    }
     }
 
 
