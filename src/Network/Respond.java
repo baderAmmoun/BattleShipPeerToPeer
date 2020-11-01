@@ -1,10 +1,10 @@
 package Network;
 
-public class Respond extends  Request {
+public class Respond extends ExchangeableMessage {
 
     private boolean isTargetHit;
-    public Respond(int x, int y, String SenderPlayer,String RecieverPlayer,String endpoint) {
-        super(x, y,SenderPlayer,RecieverPlayer,endpoint);
+    public Respond(int x, int y, String senderPlayer,String receiverPlayer) {
+        super(x, y,senderPlayer,receiverPlayer);
     }
 
     public boolean isTargetHit() {

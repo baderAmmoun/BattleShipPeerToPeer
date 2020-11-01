@@ -5,9 +5,14 @@ public abstract class BattleShipProtocol {
     private Request request;
     private Respond respond;
 
+    public void injectMessage(ExchangeableMessage message){
+        if(message instanceof Request){
+            this.request=(Request) message;
+        }
+        else {
+            this.respond = (Respond) message;
+        }
 
-    public void injectRequest(Request request){
-        this.request=request;
     }
 
     public Request getRequest() {
@@ -19,12 +24,12 @@ public abstract class BattleShipProtocol {
     }
 
     public void handleRequest() {
-        if (this.isStrike(request)) {
-            respond = new Respond(-1, -1, request.getReceiverPlayer(), request.getSenderPlayer(),request.getEndpoint());
+        if (this.request!=null) {
+            this.respond = new Respond(-1, -1, request.getReceiverPlayer(), request.getSenderPlayer());
             handleStrikeRequest(request, respond);
             ConnectionManager.getConnectionManger().sendRespond(respond);
         } else {
-            this.respond = (Respond) request;
+            //this.respond = (Respond) request;
             System.out.println("I have recived respond for my request from " + respond.getSenderPlayer());
             handleResultOfStrike(respond);
 

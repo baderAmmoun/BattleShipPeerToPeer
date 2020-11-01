@@ -51,15 +51,15 @@ public class ConnectionManager {
     }
 
     public void sendMessage(Request request, int port) {
-        Socket socket = sockets.get(request.getEndpoint());
-        System.out.println("liten I will send the messahe right now but first i have to check if the socjet is here");
-        System.out.println(sockets.get(request.getEndpoint()));
+        Socket socket = sockets.get(request.getReceiverPlayer());
+        System.out.println("listen I will send the message right now but first i have to check if the socket is here");
+        System.out.println(sockets.get(request.getReceiverPlayer()));
         try {
             if (socket == null) {
 
                 System.out.println("the request have been send to the port" + port);
                 socket = new Socket("localhost", port);
-                sockets.put(request.getEndpoint(), socket);
+                sockets.put(request.getReceiverPlayer(), socket);
             }
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(request);
@@ -69,7 +69,7 @@ public class ConnectionManager {
         }
     }
     public void sendRespond(Respond respond){
-        Socket socket = sockets.get(respond.getEndpoint());
+        Socket socket = sockets.get(respond.getReceiverPlayer());
         System.out.println("I will send respond to the "+respond.getReceiverPlayer());
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -92,16 +92,21 @@ public class ConnectionManager {
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
-                Request request = (Request) in.readObject();
-                if(!this.sockets.containsKey(request.getEndpoint())) {
-                    sockets.put(request.getEndpoint(), socket);
+                ExchangeableMessage request = (ExchangeableMessage) in.readObject();
+                if(!this.sockets.containsKey(request.getSenderPlayer())) {
+                    if (socket.getLocalPort() == 888) {
+                        Socket clientSocket = new Socket("localhost", 889);
+                        sockets.put(request.getSenderPlayer(), clientSocket);
+                    } else {
+                        Socket clientSocket = new Socket("localhost", 888);
+                        sockets.put(request.getSenderPlayer(), clientSocket);
+                    }
                 }
-                System.out.println(request.getEndpoint());
-
                 Thread thread = new Thread(new CallBack(request));
                 thread.start();
 
-            } catch (Exception w) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
