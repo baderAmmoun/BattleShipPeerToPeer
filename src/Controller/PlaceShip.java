@@ -7,7 +7,7 @@ import Model.Ship;
 public class PlaceShip {
 
     private Fleet fleet;
-    private TowerControl control;
+
     public PlaceShip(){
         this.fleet=Fleet.getFleet();
 
@@ -18,13 +18,11 @@ public class PlaceShip {
        fleet.registerAlliesTowers(towerControl);
     }
 
-    public void placeShipe(int xcordinate,int yCoordinate){
+    public void placeShip(int xCoordinate, int yCoordinate){
 
-        Coordinate coordinate=new Coordinate(xcordinate,yCoordinate);
+        Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
         Ship ship=new Ship(coordinate);
         this.fleet.addShip(ship);
-
-       // this.control.changeColor("blue");
 
 
     }

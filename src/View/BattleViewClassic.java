@@ -1,6 +1,6 @@
 package View;
 
-import Controller.CounterReceiver;
+import Controller.BattleShipProtocol;
 import Controller.PlaceShip;
 import Controller.TowerControl;
 import Network.ConnectionManager;
@@ -35,7 +35,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         this.numRows = numRows;
         this.numCols = numCols;
         this.placeShip = new PlaceShip();
-        CounterReceiver.registerTowerControl(this);
+        BattleShipProtocol.registerTowerControl(this);
     }
     public static BattleViewClassic getInstance(){
         if (battleViewClassic==null) {
@@ -138,7 +138,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
             BattleShipButton currentShip = (BattleShipButton) event.getSource();
             if (!currentShip.isShout()) {
                 this.placeShip.registerTower(ship);
-                this.placeShip.placeShipe(ship.getXcoordinate(), ship.getyCoordinate());
+                this.placeShip.placeShip(ship.getXcoordinate(), ship.getyCoordinate());
             }
             else{
                 ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"feras","bader"),888);

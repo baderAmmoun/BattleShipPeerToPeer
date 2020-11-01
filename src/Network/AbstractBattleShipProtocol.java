@@ -1,6 +1,6 @@
 package Network;
 
-public abstract class BattleShipProtocol {
+public abstract class AbstractBattleShipProtocol {
 
     private Request request;
     private Respond respond;
@@ -22,14 +22,11 @@ public abstract class BattleShipProtocol {
     }
 
     public void handleRequest() {
-        if (this.request!=null) {
+        if (this.request != null) {
             this.respond = new Respond(this.request.getX(), this.request.getY(), request.getReceiverPlayer(), request.getSenderPlayer());
             handleStrikeRequest(request, respond);
             ConnectionManager.getConnectionManger().sendRespond(respond);
         } else {
-            //this.respond = (Respond) request;
-            System.out.println("I have recived respond for my request from " + respond.getSenderPlayer());
-
             handleResultOfStrike(respond);
 
         }
