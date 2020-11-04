@@ -4,16 +4,16 @@ public interface Roles {
 
 
 
-    public void setOpponent(boolean ready);
-    public boolean isOpponentReady();
+    public void setOpponentReady();
     public boolean isLocalReady();
     public boolean startGame();
     public boolean endGame();
-    public int numberOFShips();
-    public int  numberOfAttempts();
+    public int numberOFLimitPlaceShips();
+    public int numberOfLimitAttack();
     public boolean amIWine();
     public void placeShip();
-    public void destroyShip();
-    public void localAttempt();
-    public void remoteAttempt();
+    public void destroyRemoteShip();
+    public void disLocalShip();
+    public void numLocalAttack();
+    public void numRemoteAttack();
 }

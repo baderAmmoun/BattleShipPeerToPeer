@@ -233,7 +233,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         }
         else
             result.setText("game over");
-        layout.setBottom(result);
+        Platform.runLater(() ->  layout.setBottom(result));
     }
 
 }

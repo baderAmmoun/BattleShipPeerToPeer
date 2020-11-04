@@ -64,7 +64,7 @@ public class Fleet {
     }
 
     public Map<Boolean,Ship> isShipThere(Coordinate coordinate) {
-        this.roles.localAttempt();
+
         HashMap map=new HashMap<>();
         Iterator iterator = aliveShips.iterator();
         while (iterator.hasNext()) {
@@ -73,7 +73,7 @@ public class Fleet {
             if (coordinate.equals(shipCoordinate)) {
                 map.put(true, ship);
                 System.out.println("I find ship here");
-                roles.destroyShip();
+                roles.disLocalShip();
             }
         }
         map.put(false, null);
@@ -129,7 +129,7 @@ public class Fleet {
     }
 
     public void setOpponentIsReady(){
-        roles.setOpponent(true);
+        roles.setOpponentReady();
     }
 
     public boolean isGameStart(){
@@ -138,20 +138,21 @@ public class Fleet {
     public boolean isLocalReady(){
         return this.roles.isLocalReady();
     }
-    public void increaseOpponentDestroyedShips(){
-        this.roles.destroyShip();
+    public void destroyRemotedShips(){
+        this.roles.destroyRemoteShip();
     }
     public void increaseOpponentAttempt(){
-        this.roles.remoteAttempt();
+        this.roles.numRemoteAttack();
     }
     public  boolean isGameEnd(){
         return this.roles.endGame();
     }
     public boolean amIWin(){
+
         return this.roles.amIWine();
     }
     public void increaseLocalAttempt(){
-        this.roles.localAttempt();
+        this.roles.numLocalAttack();
     }
 }
 

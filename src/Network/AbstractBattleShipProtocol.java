@@ -34,6 +34,7 @@ public abstract class AbstractBattleShipProtocol {
             }
         } else {
             handleResultOfStrike(respond);
+            System.out.println("I have recived the respond");
 
         }
     }

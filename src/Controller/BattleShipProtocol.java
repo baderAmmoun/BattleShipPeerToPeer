@@ -19,11 +19,16 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
     }
     public static void increaseLocalAttempt(){
         Fleet.getFleet().increaseLocalAttempt();
+        if(Fleet.getFleet().isGameEnd()){
+            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+            System.out.println("the game is end");
+        }
     }
     @Override
     public void handleStrikeRequest(Request request,Respond respond) {
        System.out.println("here by the real implementation of the handle request ");
         Fleet fleet=Fleet.getFleet();
+        fleet.increaseOpponentAttempt();
         Coordinate coordinate=new Coordinate(request.getX(),request.getY());
         Map<Boolean, Ship> map=fleet.isShipThere(coordinate);
         if(map.containsKey(true)){
@@ -35,19 +40,20 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
             respond.setTargetHit(false);
 
         respond.setCountOfNeighborShip(fleet.countOfNeighborShip(coordinate));
+        if(Fleet.getFleet().isGameEnd()){
+            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+        }
     }
 
     @Override
     public void handleResultOfStrike(Respond respond) {
-        Fleet.getFleet().increaseOpponentAttempt();
+
         BattleViewClassic.getInstance().NumNeighborShips(respond.getCountOfNeighborShip(),respond.getX(),respond.getY());
         BattleViewClassic.getInstance().increaseDestroyedShips(respond.isTargetHit());
         if(respond.isTargetHit()){
-            Fleet.getFleet().increaseOpponentDestroyedShips();
+            Fleet.getFleet().destroyRemotedShips();
         }
-        if(Fleet.getFleet().isGameEnd()){
-            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
-        }
+
 
         System.out.println(respond.isTargetHit());
         System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());
@@ -56,9 +62,10 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
     @Override
     public void startGame(Request request) {
      Fleet.getFleet().setOpponentIsReady();
-     if(Fleet.getFleet().isGameStart())
+     if(Fleet.getFleet().isGameStart()) {
          BattleViewClassic.getInstance().startGame();
+         System.out.println("I will disable the panel");
 
-
+     }
     }
 }

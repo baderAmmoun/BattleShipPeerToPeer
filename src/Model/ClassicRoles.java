@@ -3,24 +3,20 @@ package Model;
 public class ClassicRoles implements Roles {
 
     private int numLocalShips;
-    private int numRemoteShips;
-    private int numCurrentLocalShips;
-    private int numAttempts;
+    private int numRemoteDisShips;
+    private int numLocalAttacks;
     private boolean isOpponentReady;
     private boolean isLocalReady;
-    private int numRemoteAttempt;
-    @Override
-    public boolean isOpponentReady() {
-      return isOpponentReady;
-    }
+    private int numRemoteAttacks;
+
 
     @Override
-    public void setOpponent(boolean ready) {
-        this.isOpponentReady=ready;
+    public void setOpponentReady() {
+        this.isOpponentReady=true;
     }
     @Override
     public boolean isLocalReady() {
-        return numLocalShips==numberOFShips() ;
+        return numLocalShips== numberOFLimitPlaceShips() ;
     }
 
     @Override
@@ -30,22 +26,24 @@ public class ClassicRoles implements Roles {
 
     @Override
     public boolean endGame() {
-        return (numAttempts== numberOfAttempts()&& numRemoteAttempt==numberOfAttempts());
+        return (numLocalAttacks == numberOfLimitAttack()&& numRemoteAttacks == numberOfLimitAttack());
     }
 
     @Override
-    public int numberOFShips() {
+    public int numberOFLimitPlaceShips() {
      return 10;
     }
 
     @Override
-    public int numberOfAttempts() {
+    public int numberOfLimitAttack() {
         return 10;
     }
 
     @Override
     public boolean amIWine() {
-        return numLocalShips>numRemoteShips;
+        System.out.println("the number of cuurent ship is "+(this.numberOFLimitPlaceShips()-numLocalShips));
+        System.out.println("the number of romote ship is "+(this.numberOFLimitPlaceShips()-numRemoteDisShips));
+        return numLocalShips> this.numberOFLimitPlaceShips()-numRemoteDisShips;
     }
 
     @Override
@@ -54,16 +52,24 @@ public class ClassicRoles implements Roles {
     }
 
     @Override
-    public void destroyShip() {
-      this.numRemoteShips--;
+    public void destroyRemoteShip() {
+      this.numRemoteDisShips++;
     }
 
     @Override
-    public void localAttempt() {
-        this.numAttempts++;
+    public void disLocalShip() {
+        this.numLocalShips--;
+    }
+
+    @Override
+    public void numLocalAttack() {
+        this.numLocalAttacks++;
+
+        System.out.println("I increase the local attempt and it become "+this.numLocalAttacks);
     }
     @Override
-    public void remoteAttempt() {
-        this.numRemoteAttempt++;
+    public void numRemoteAttack() {
+        this.numRemoteAttacks++;
+        System.out.println("I have increase the remote attempt and it become "+this.numRemoteAttacks);
     }
 }
