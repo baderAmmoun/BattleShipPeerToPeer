@@ -5,10 +5,13 @@ import Model.Coordinate;
 import Model.Fleet;
 import Model.Ship;
 import Network.AbstractBattleShipProtocol;
+import Network.ConnectionManager;
 import Network.Request;
 import Network.Respond;
 import View.BattleViewClassic;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Map;
 
 public class BattleShipProtocol extends AbstractBattleShipProtocol {
@@ -42,6 +45,7 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
         respond.setCountOfNeighborShip(fleet.countOfNeighborShip(coordinate));
         if(Fleet.getFleet().isGameEnd()){
             BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+            respond.setGameEnd(true);
         }
     }
 
@@ -67,5 +71,16 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
          System.out.println("I will disable the panel");
 
      }
+    }
+
+    @Override
+    public void endGame(Respond respond) {
+       Socket socket= ConnectionManager.getConnectionManger().getSocket(respond.getSenderPlayer());
+        try {
+            System.out.println("I will delete the socket");
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

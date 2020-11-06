@@ -34,6 +34,9 @@ public abstract class AbstractBattleShipProtocol {
             }
         } else {
             handleResultOfStrike(respond);
+            if(respond.isGameEnd())
+                endGame(respond);
+
             System.out.println("I have recived the respond");
 
         }
@@ -42,5 +45,6 @@ public abstract class AbstractBattleShipProtocol {
     public abstract void handleStrikeRequest(Request request,Respond respond);
     public abstract void handleResultOfStrike(Respond respond);
     public abstract void startGame(Request request);
+    public abstract void  endGame(Respond respond);
 
 }

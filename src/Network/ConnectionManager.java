@@ -100,6 +100,16 @@ public class ConnectionManager {
                     Socket clientSocket = new Socket(Config.getConfig().getValue("serverName"), Integer.parseInt(Config.getConfig().getValue("remotePort")));
                     sockets.put(request.getSenderPlayer(), clientSocket);
                 }
+                if(request instanceof Respond){
+                    Respond respond =(Respond) request;
+                    if(respond.isGameEnd()){
+
+                      Socket socket1=  sockets.remove(respond.getSenderPlayer());
+                      socket1.close();
+                        System.out.println("I delete the socket");
+                        return;
+                    }
+                }
                 Thread thread = new Thread(new CallBack(request));
                 thread.setDaemon(true);
                 thread.start();
