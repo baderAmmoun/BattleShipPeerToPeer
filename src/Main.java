@@ -10,7 +10,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ApplicationInit mainWindow=new ApplicationInit(primaryStage, BattleViewClassic.getInstance());
+        new ApplicationInit(primaryStage, BattleViewClassic.getInstance());
 
     }
 }
