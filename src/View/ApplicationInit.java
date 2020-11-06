@@ -32,11 +32,8 @@ public class ApplicationInit {
 
     private void CreateSocketServer() throws IOException {
 
-
-        //endPoint.registerListener(label);
-
         Server server = new Server();
-        //server.registerEndPoint(endPoint);
+        server.setDaemon(true);
         server.start();
 
 

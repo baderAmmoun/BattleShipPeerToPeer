@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class Server extends Thread {
     private ServerSocket serverSocket;
@@ -20,7 +21,14 @@ public class Server extends Thread {
 
             System.out.println("the server has been created on port"+port);
             serverSocket = new ServerSocket(port);
-            executorService = Executors.newCachedThreadPool();
+            executorService = Executors.newCachedThreadPool(new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable runnable) {
+                    Thread t = Executors.defaultThreadFactory().newThread(runnable);
+                    t.setDaemon(true);
+                    return t;
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

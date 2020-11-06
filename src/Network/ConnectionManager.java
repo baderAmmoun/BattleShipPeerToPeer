@@ -101,6 +101,7 @@ public class ConnectionManager {
                     sockets.put(request.getSenderPlayer(), clientSocket);
                 }
                 Thread thread = new Thread(new CallBack(request));
+                thread.setDaemon(true);
                 thread.start();
 
             } catch (Exception e) {
