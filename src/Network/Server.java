@@ -13,7 +13,7 @@ public class Server extends Thread {
     private ExecutorService executorService;
     private int port;
     public Server(){
-        this.port= Integer.parseInt(Config.getConfig("conf.properties").getValue("port"));
+        this.port= Integer.parseInt(Config.getConfig("localConf.properties").getValue("port"));
     }
     public void run() {
         try {

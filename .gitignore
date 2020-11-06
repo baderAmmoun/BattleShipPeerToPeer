@@ -3,5 +3,6 @@ out/
 /classpath
 bin/
 BattleShipPeerToPeerArcheticture.iml
+localConf.properties
 /.idea
 
