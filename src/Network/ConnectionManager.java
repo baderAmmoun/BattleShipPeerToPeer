@@ -51,6 +51,7 @@ public class ConnectionManager {
     }
 
     public void sendMessage(Request request, int port) {
+        System.out.println("the port is "+port);
         Socket socket = sockets.get(request.getReceiverPlayer());
         System.out.println("listen I will send the message right now but first i have to check if the socket is here");
         System.out.println(sockets.get(request.getReceiverPlayer()));

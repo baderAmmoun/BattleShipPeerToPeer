@@ -1,7 +1,8 @@
 package View;
 
+import Configuration.Config;
 import Controller.BattleShipProtocol;
-import Controller.ExecuteStrike;
+import Controller.Strike;
 import Controller.PlaceShip;
 import Controller.TowerControl;
 import Network.ConnectionManager;
@@ -145,12 +146,14 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
             if (!currentShip.isShout()) {
                 this.placeShip.registerTower(ship);
                 this.placeShip.placeShip(ship.getXcoordinate(), ship.getyCoordinate());
+
             }
             else{
 
-                ExecuteStrike strike=new ExecuteStrike();
-                strike.attack(ship.getXcoordinate(), ship.getyCoordinate());
+              //  BattleShipProtocol.increaseLocalAttempt();
+              //  ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"feras","bader"),888);
 
+                new Strike(ship);
 
             }
         });

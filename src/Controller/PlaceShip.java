@@ -1,5 +1,6 @@
 package Controller;
 
+import Configuration.Config;
 import Model.Coordinate;
 import Model.Fleet;
 import Model.Ship;
@@ -29,8 +30,17 @@ public class PlaceShip {
 
         this.fleet.addShip(ship);
         if (this.fleet.isLocalReady()){
-            Request request=new Request(-1,-1,"feras","bader");
-            ConnectionManager.getConnectionManger().sendMessage(request,888);
+            Config config= null;
+            try {
+                config = Config.getConfig();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int remotePort=Integer.parseInt(config.getValue("remotePort"));
+            String sender=config.getValue("sender");
+            String receiver=config.getValue("receiver");
+            Request request=new Request(-1,-1,sender,receiver);
+            ConnectionManager.getConnectionManger().sendMessage(request,remotePort);
 
         }
 
