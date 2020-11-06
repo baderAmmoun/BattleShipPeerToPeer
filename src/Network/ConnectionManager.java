@@ -1,6 +1,8 @@
 package Network;
 
 
+import Configuration.Config;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -59,13 +61,13 @@ public class ConnectionManager {
             if (socket == null) {
 
                 System.out.println("the request have been send to the port" + port);
-                socket = new Socket("localhost", port);
+                socket = new Socket(Config.getConfig().getValue("serverName"), port);
                 sockets.put(request.getReceiverPlayer(), socket);
             }
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(request);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -95,13 +97,8 @@ public class ConnectionManager {
                 System.out.println("wait for a new connection");
                 ExchangeableMessage request = (ExchangeableMessage) in.readObject();
                 if(!this.sockets.containsKey(request.getSenderPlayer())) {
-                    if (socket.getLocalPort() == 888) {
-                        Socket clientSocket = new Socket("localhost", 889);
-                        sockets.put(request.getSenderPlayer(), clientSocket);
-                    } else {
-                        Socket clientSocket = new Socket("localhost", 888);
-                        sockets.put(request.getSenderPlayer(), clientSocket);
-                    }
+                    Socket clientSocket = new Socket(Config.getConfig().getValue("serverName"), Integer.parseInt(Config.getConfig().getValue("remotePort")));
+                    sockets.put(request.getSenderPlayer(), clientSocket);
                 }
                 Thread thread = new Thread(new CallBack(request));
                 thread.start();
