@@ -4,7 +4,7 @@ public interface Roles {
 
 
 
-    public void setOpponentReady();
+    public void riseRemoteReadiness();
     public boolean isLocalReady();
     public boolean startGame();
     public boolean endGame();

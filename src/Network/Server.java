@@ -11,7 +11,7 @@ public class Server extends Thread {
     private ExecutorService executorService;
     public void run() {
         try {
-            int port=888;
+            int port=889;
             System.out.println("the server has been created on port"+port);
             serverSocket = new ServerSocket(port);
             executorService = Executors.newCachedThreadPool();

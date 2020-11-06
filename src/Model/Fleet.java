@@ -128,8 +128,8 @@ public class Fleet {
 
     }
 
-    public void setOpponentIsReady(){
-        roles.setOpponentReady();
+    public void riseRemoteReadiness(){
+        roles.riseRemoteReadiness();
     }
 
     public boolean isGameStart(){
@@ -141,7 +141,7 @@ public class Fleet {
     public void destroyRemotedShips(){
         this.roles.destroyRemoteShip();
     }
-    public void increaseOpponentAttempt(){
+    public void numRemoteAttack(){
         this.roles.numRemoteAttack();
     }
     public  boolean isGameEnd(){
@@ -154,6 +154,9 @@ public class Fleet {
     public void increaseLocalAttempt(){
         this.roles.numLocalAttack();
     }
+   public int limitOfCounters(){
+        return this.roles.numberOfLimitAttack();
+   }
 }
 
 

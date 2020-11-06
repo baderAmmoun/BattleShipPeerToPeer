@@ -21,13 +21,16 @@ public class PlaceShip {
     }
 
     public void placeShip(int xCoordinate, int yCoordinate){
-
+        System.out.println("I will plcae one ship");
+        if(fleet.isLocalReady())
+            return;
         Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
         Ship ship=new Ship(coordinate);
+
         this.fleet.addShip(ship);
         if (this.fleet.isLocalReady()){
-            Request request=new Request(-1,-1,"bader","feras");
-            ConnectionManager.getConnectionManger().sendMessage(request,889);
+            Request request=new Request(-1,-1,"feras","bader");
+            ConnectionManager.getConnectionManger().sendMessage(request,888);
 
         }
 

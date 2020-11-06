@@ -1,6 +1,7 @@
 package View;
 
 import Controller.BattleShipProtocol;
+import Controller.ExecuteStrike;
 import Controller.PlaceShip;
 import Controller.TowerControl;
 import Network.ConnectionManager;
@@ -146,8 +147,11 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
                 this.placeShip.placeShip(ship.getXcoordinate(), ship.getyCoordinate());
             }
             else{
-                BattleShipProtocol.increaseLocalAttempt();
-                ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"bader","feras"),889);
+
+                ExecuteStrike strike=new ExecuteStrike();
+                strike.attack(ship.getXcoordinate(), ship.getyCoordinate());
+
+
             }
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);
