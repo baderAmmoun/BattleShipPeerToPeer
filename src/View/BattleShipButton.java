@@ -6,22 +6,22 @@ import javafx.scene.control.Button;
 
 
 public class BattleShipButton extends Button implements TowerControl {
-    private final int xcoordinate;
+    private final int xCoordinate;
     private final int yCoordinate;
     private final boolean isShout;
 
     public BattleShipButton(int xcoordinate, int yCoordinate, boolean isShout) {
         super();
-        this.xcoordinate = xcoordinate;
+        this.xCoordinate = xcoordinate;
         this.yCoordinate = yCoordinate;
         this.isShout = isShout;
     }
 
-    public int getXcoordinate() {
-        return xcoordinate;
+    public int getXCoordinate() {
+        return xCoordinate;
     }
 
-    public int getyCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
     }
 

@@ -1,4 +1,5 @@
-package View;
+import View.ApplicationInit;
+import View.BattleViewClassic;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,8 +10,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainWindow mainWindow=new MainWindow(primaryStage,BattleViewClassic.getInstance());
-        mainWindow.display();
-        mainWindow.CreateSocketServer();
+        ApplicationInit mainWindow=new ApplicationInit(primaryStage, BattleViewClassic.getInstance());
+
     }
 }

@@ -6,16 +6,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class MainWindow {
+public class ApplicationInit {
     private Stage window;
     BattleViewFactory factory;
 
-    public MainWindow(Stage window, BattleViewFactory factory) {
+    public ApplicationInit(Stage window, BattleViewFactory factory) throws IOException {
         this.window = window;
         this.factory = factory;
+        this.display();
+        this.CreateSocketServer();
     }
 
-    public void display() {
+    private void display() {
         factory.createLocalFleetView();
         factory.createAttackerView();
         factory.createPanelInfoView();
@@ -28,7 +30,7 @@ public class MainWindow {
     }
 
 
-    public void CreateSocketServer() throws IOException {
+    private void CreateSocketServer() throws IOException {
 
 
         //endPoint.registerListener(label);

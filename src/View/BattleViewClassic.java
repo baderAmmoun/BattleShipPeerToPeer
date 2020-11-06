@@ -1,12 +1,9 @@
 package View;
 
-import Configuration.Config;
 import Controller.BattleShipProtocol;
-import Controller.Strike;
 import Controller.PlaceShip;
+import Controller.Strike;
 import Controller.TowerControl;
-import Network.ConnectionManager;
-import Network.Request;
 import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -145,16 +142,11 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
             BattleShipButton currentShip = (BattleShipButton) event.getSource();
             if (!currentShip.isShout()) {
                 this.placeShip.registerTower(ship);
-                this.placeShip.placeShip(ship.getXcoordinate(), ship.getyCoordinate());
+                this.placeShip.placeShip(ship.getXCoordinate(), ship.getYCoordinate());
 
             }
             else{
-
-              //  BattleShipProtocol.increaseLocalAttempt();
-              //  ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"feras","bader"),888);
-
                 new Strike(ship);
-
             }
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);
@@ -179,7 +171,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         while (iterator.hasNext()){
 
             BattleShipButton battleShipButton=(BattleShipButton) iterator.next();
-            if(battleShipButton.getXcoordinate()==x && battleShipButton.getyCoordinate()==y){
+            if(battleShipButton.getXCoordinate()==x && battleShipButton.getYCoordinate()==y){
 
                 battleShipButton.setStyle("-fx-background-color:" + color);
             }
@@ -196,7 +188,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         while (iterator.hasNext()){
 
             BattleShipButton battleShipButton=(BattleShipButton) iterator.next();
-            if(battleShipButton.getXcoordinate()==x && battleShipButton.getyCoordinate()==y){
+            if(battleShipButton.getXCoordinate()==x && battleShipButton.getYCoordinate()==y){
 
                Platform.runLater(() -> {
                            battleShipButton.setText(Integer.toString(num));
