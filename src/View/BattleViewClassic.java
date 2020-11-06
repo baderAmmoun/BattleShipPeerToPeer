@@ -147,7 +147,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
             }
             else{
                 BattleShipProtocol.increaseLocalAttempt();
-                ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"feras","bader"),888);
+                ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXcoordinate(),ship.getyCoordinate(),"bader","feras"),889);
             }
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);

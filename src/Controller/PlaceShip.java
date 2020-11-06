@@ -26,8 +26,8 @@ public class PlaceShip {
         Ship ship=new Ship(coordinate);
         this.fleet.addShip(ship);
         if (this.fleet.isLocalReady()){
-            Request request=new Request(-1,-1,"feras","bader");
-            ConnectionManager.getConnectionManger().sendMessage(request,888);
+            Request request=new Request(-1,-1,"bader","feras");
+            ConnectionManager.getConnectionManger().sendMessage(request,889);
 
         }
 
