@@ -28,7 +28,7 @@ public class PlaceShip {
         Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
         Ship ship=new Ship(coordinate);
 
-        this.fleet.addShip(ship);
+         this.fleet.addShip(ship);
         if (this.fleet.isLocalReady()){
             Config config= null;
             try {

@@ -10,14 +10,15 @@ public class ApplicationInit {
     private Stage window;
     BattleViewFactory factory;
 
-    public ApplicationInit(Stage window, BattleViewFactory factory) throws IOException {
+    public ApplicationInit(Stage window, BattleViewFactory factory) throws Exception {
         this.window = window;
         this.factory = factory;
-        this.display();
         this.CreateSocketServer();
+        this.display();
+
     }
 
-    private void display() {
+    private void display() throws Exception {
         factory.createLocalFleetView();
         factory.createAttackerView();
         factory.createPanelInfoView();

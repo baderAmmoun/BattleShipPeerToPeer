@@ -13,7 +13,7 @@ import java.util.Map;
 public class ConnectionManager {
     private static ConnectionManager connectionManager;
     private final Map<String, Socket> sockets;
-
+    private boolean end=false;
     private ConnectionManager() {
 
         System.out.println("the connection manger have been iniated one");
@@ -77,10 +77,18 @@ public class ConnectionManager {
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(respond);
+            if(respond.isGameEnd()) {
+                this.end=true;
+
+               // System.out.println("delete socket");
+             //  Socket soket1= sockets.remove(respond.getSenderPlayer());
+              // soket1.close();
+            }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
@@ -91,7 +99,7 @@ public class ConnectionManager {
     public void receiveMessage(Socket socket) {
 
         System.out.println("the new thread have been started so you do not have to waite");
-        while (true) {
+        while (!this.end) {
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 System.out.println("wait for a new connection");
@@ -115,7 +123,12 @@ public class ConnectionManager {
                 thread.start();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    socket.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                System.out.println("I delete the socket");
             }
         }
     }

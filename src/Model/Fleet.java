@@ -84,6 +84,7 @@ public class Fleet {
 
         aliveShips.remove(ship);
         destroyedShips.add(ship);
+
     }
 
     public void notifyEnemiesTowers(String color, int x, int y) {
@@ -91,7 +92,7 @@ public class Fleet {
         while (iterator.hasNext()) {
 
             TowerControl towerControl = (TowerControl) iterator.next();
-            towerControl.OnAction();
+            towerControl.onCallback();
             towerControl.changeColor(color, x, y);
         }
 

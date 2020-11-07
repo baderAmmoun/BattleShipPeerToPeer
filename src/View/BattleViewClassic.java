@@ -1,5 +1,6 @@
 package View;
 
+import Configuration.Config;
 import Controller.BattleShipProtocol;
 import Controller.PlaceShip;
 import Controller.Strike;
@@ -34,13 +35,12 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         this.numCols = numCols;
         this.placeShip = new PlaceShip();
         BattleShipProtocol.registerTowerControl(this);
+        placeShip.registerTower(this);
     }
     public static BattleViewClassic getInstance(){
         if (battleViewClassic==null) {
             battleViewClassic = new BattleViewClassic(10, 12);
-           return battleViewClassic;
         }
-            else
             return battleViewClassic;
 
     }
@@ -78,15 +78,15 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
     }
 
     @Override
-    public void createPanelInfoView() {
+    public void createPanelInfoView() throws Exception {
         VBox vBox1=new VBox(10);
         vBox1.setPrefWidth(200);
         this.localPlayer=new Label();
         Label constantIntact=new Label("The number of intact ships is :");
         this.intactShips=new Label("0");
-        this.localPlayer.setText("Bader");
-       this.decorateLabel(intactShips);
-       this.decorateLabel(localPlayer);
+        this.localPlayer.setText(Config.getConfig().getValue("sender"));
+        this.decorateLabel(intactShips);
+        this.decorateLabel(localPlayer);
         this.decorateLabel(constantIntact);
         vBox1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox1.getChildren().addAll(this.localPlayer,constantIntact,this.intactShips);
@@ -95,7 +95,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         vBox2.setPrefWidth(200);
         this.remotePlayer=new Label();
         this.destroyedOpponentShips=new Label("0");
-        this.remotePlayer.setText("feras");
+        this.remotePlayer.setText(Config.getConfig().getValue("receiver"));
         Label constantDestroy=new Label("the number of destroyed ships are");
         this.decorateLabel(remotePlayer);
         this.decorateLabel(destroyedOpponentShips);
@@ -157,11 +157,26 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
 
     @Override
     public void OnAction() {
+        int count =Integer.parseInt(intactShips.getText());
+        System.out.println("the count is"+ count);
 
+        intactShips.setText(Integer.toString(++count));
+    }
+
+    @Override
+    public void onCallback() {
+
+        Platform.runLater(() -> {
+        int count =Integer.parseInt(intactShips.getText());
+        System.out.println("the count is"+ count);
+
+        intactShips.setText(Integer.toString(--count));
+    });
     }
 
     @Override
     public void changeColor(String color,int x, int y) {
+        System.out.println(color);
         GridPane grade=(GridPane) this.layout.getLeft();
         FilteredList<Node> currentNode=grade.getChildren().filtered((node)->{
           if(GridPane.getRowIndex(node)==x&& GridPane.getColumnIndex(node)==y);
@@ -207,9 +222,11 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         if(isDestroyed){
            Platform.runLater(()->{
 
-               int currentNumber= Integer.parseInt(this.destroyedOpponentShips.getText());
-               currentNumber++;
-               this.destroyedOpponentShips.setText(Integer.toString(currentNumber));
+               int remoteNumber= Integer.parseInt(this.destroyedOpponentShips.getText());
+               remoteNumber++;
+               this.destroyedOpponentShips.setText(Integer.toString(remoteNumber));
+
+
            });
        }
 
