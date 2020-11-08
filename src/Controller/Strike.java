@@ -5,6 +5,7 @@ import Model.Fleet;
 import Network.ConnectionManager;
 import Network.Request;
 import View.BattleShipButton;
+import View.BattleViewClassic;
 
 public class Strike {
     private static int numOfCount;
@@ -13,7 +14,11 @@ public class Strike {
 
         if(numOfCount>=Fleet.getFleet().limitOfCounters())
             return;
-        BattleShipProtocol.increaseLocalAttempt();
+        Fleet.getFleet().increaseLocalAttempt();
+        if(Fleet.getFleet().isGameEnd()){
+            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+            System.out.println("the game is end");
+        }
         Config config= null;
         try {
             config = Config.getConfig();

@@ -9,7 +9,6 @@ import Network.ConnectionManager;
 import Network.Request;
 import Network.Respond;
 import View.BattleViewClassic;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
@@ -20,13 +19,7 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
         Fleet.getFleet().registerEnemiesTower(towerControl);
         Fleet.getFleet().registerRoles(new ClassicRoles());
     }
-    public static void increaseLocalAttempt(){
-        Fleet.getFleet().increaseLocalAttempt();
-        if(Fleet.getFleet().isGameEnd()){
-            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
-            System.out.println("the game is end");
-        }
-    }
+
     @Override
     public void handleStrikeRequest(Request request,Respond respond) {
        System.out.println("here by the real implementation of the handle request ");
@@ -69,7 +62,6 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
      if(Fleet.getFleet().isGameStart()) {
          BattleViewClassic.getInstance().startGame();
          System.out.println("I will disable the panel");
-
      }
     }
 
