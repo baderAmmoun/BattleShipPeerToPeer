@@ -9,6 +9,7 @@ import Network.ConnectionManager;
 import Network.Request;
 import Network.Respond;
 import View.BattleViewClassic;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
@@ -16,8 +17,9 @@ import java.util.Map;
 public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
     public static void registerTowerControl(TowerControl towerControl){
-        Fleet.getFleet().registerEnemiesTower(towerControl);
-        Fleet.getFleet().registerRoles(new ClassicRoles());
+        Fleet fleet= Fleet.getFleet();
+        fleet.registerEnemiesTower(towerControl);
+        fleet.registerRoles(new ClassicRoles());
     }
 
     @Override
@@ -44,22 +46,20 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
     @Override
     public void handleResultOfStrike(Respond respond) {
-
-        BattleViewClassic.getInstance().NumNeighborShips(respond.getCountOfNeighborShip(),respond.getX(),respond.getY());
-        BattleViewClassic.getInstance().increaseDestroyedShips(respond.isTargetHit());
-        if(respond.isTargetHit()){
+        BattleViewClassic panel = BattleViewClassic.getInstance();
+        panel.NumNeighborShips(respond.getCountOfNeighborShip(), respond.getX(), respond.getY());
+        panel.increaseDestroyedShips(respond.isTargetHit());
+        if (respond.isTargetHit()) {
             Fleet.getFleet().destroyRemotedShips();
         }
 
-
-        System.out.println(respond.isTargetHit());
-        System.out.println("and the number of neighbor ships are"+respond.getCountOfNeighborShip());
     }
 
     @Override
     public void startGame(Request request) {
-     Fleet.getFleet().riseRemoteReadiness();
-     if(Fleet.getFleet().isGameStart()) {
+     Fleet fleet=Fleet.getFleet();
+     fleet.riseRemoteReadiness();
+     if(fleet.isGameStart()) {
          BattleViewClassic.getInstance().startGame();
          System.out.println("I will disable the panel");
      }
