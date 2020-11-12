@@ -1,11 +1,12 @@
 package View;
 
-import Model.TowerControl;
+
+import Controller.ActionObserver;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 
 
-public class BattleShipButton extends Button implements TowerControl {
+public class BattleShipButton extends Button implements ActionObserver {
     private final int xCoordinate;
     private final int yCoordinate;
     private final boolean isShout;

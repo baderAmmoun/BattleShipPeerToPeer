@@ -1,11 +1,7 @@
 package View;
 
 import Configuration.Config;
-import Controller.BattleShipProtocol;
-import Controller.PlaceShip;
-import Controller.Strike;
-import Model.Audience;
-import Model.TowerControl;
+import Controller.*;
 import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -15,11 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
 import java.util.Iterator;
 
 
-public class BattleViewClassic implements BattleViewFactory, TowerControl, Audience {
+public class BattleViewClassic implements BattleViewFactory, ActionObserver, RolesObserver {
 
    private static BattleViewClassic battleViewClassic;
    private BorderPane layout;
@@ -34,10 +29,11 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl, Audie
         this.layout = new BorderPane();
         this.numRows = numRows;
         this.numCols = numCols;
+        BattleShipProtocol.registerTowerControl(new TowerControlCon(this));
         this.placeShip = new PlaceShip();
-        BattleShipProtocol.registerTowerControl(this);
-        placeShip.registerTower(this);
-        placeShip.registerAudience(this);
+        placeShip.registerActionObserver(this);
+        placeShip.registerRolesObserver(this);
+
     }
     public static BattleViewClassic getInstance(){
         if (battleViewClassic==null) {
@@ -150,7 +146,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl, Audie
         ship.setOnAction(event -> {
             BattleShipButton currentShip = (BattleShipButton) event.getSource();
             if (!currentShip.isShout()) {
-                this.placeShip.registerTower(ship);
+                this.placeShip.registerActionObserver(ship);
                 this.placeShip.placeShip(ship.getXCoordinate(), ship.getYCoordinate());
 
             }
@@ -167,10 +163,12 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl, Audie
 
     @Override
     public void OnAction(int size) {
-        int count =Integer.parseInt(intactShips.getText());
-        System.out.println("the count is"+ count);
+        Platform.runLater(() -> {
+            int count = Integer.parseInt(intactShips.getText());
+            System.out.println("the count is" + count);
 
-        intactShips.setText(Integer.toString(size));
+            intactShips.setText(Integer.toString(size));
+        });
     }
 
     @Override

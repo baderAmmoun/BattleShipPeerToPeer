@@ -5,28 +5,36 @@ import Model.*;
 import Network.ConnectionManager;
 import Network.Request;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-public class PlaceShip {
+public class PlaceShip implements TowerControl,Audience {
 
     private Fleet fleet;
     private Referee referee;
+    private List<ActionObserver> actionObserver;
+    private RolesObserver rolesObserver;
 
     public PlaceShip(){
         this.fleet=Fleet.getFleet();
         this.referee=Referee.getInstance();
         this.referee.registerRoles(new ClassicRoles());
+        fleet.registerAlliesTowers(this);
+        referee.registerAudience(this);
+         this.actionObserver=new ArrayList<>();
 
     }
 
-    public void registerTower(TowerControl towerControl){
+    public void registerActionObserver(ActionObserver actionObserver){
+         this.actionObserver.add(actionObserver);
 
-       fleet.registerAlliesTowers(towerControl);
 
     }
-    public void registerAudience(Audience audience){
+    public void registerRolesObserver(RolesObserver rolesObserver){
 
-        referee.registerAudience(audience);
+        this.rolesObserver=rolesObserver;
 
     }
 
@@ -65,5 +73,48 @@ public class PlaceShip {
         }
 
 
+    }
+
+    @Override
+    public void endGame() {
+        this.rolesObserver.endGame();
+    }
+
+    @Override
+    public void OnAction(int size) {
+        Iterator iterator = actionObserver.iterator();
+        while (iterator.hasNext()) {
+
+            ActionObserver actionObserver = (ActionObserver) iterator.next();
+            actionObserver.OnAction(size);
+
+        }
+    }
+
+    @Override
+    public void onCallback() {
+        Iterator iterator = actionObserver.iterator();
+        while (iterator.hasNext()) {
+
+            ActionObserver actionObserver = (ActionObserver) iterator.next();
+            actionObserver.onCallback();
+
+        }
+    }
+
+    @Override
+    public void changeColor(String color, int x, int y) {
+        Iterator iterator = actionObserver.iterator();
+        while (iterator.hasNext()) {
+
+            ActionObserver actionObserver = (ActionObserver) iterator.next();
+            actionObserver.changeColor(color,x,y);
+
+        }
+    }
+
+    @Override
+    public void startGame() {
+     this.rolesObserver.startGame();
     }
 }
