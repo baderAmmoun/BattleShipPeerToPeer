@@ -93,6 +93,7 @@ public class PlaceShip implements TowerControl,Audience {
 
     @Override
     public void onCallback() {
+        System.out.println("here in call back");
         Iterator iterator = actionObserver.iterator();
         while (iterator.hasNext()) {
 

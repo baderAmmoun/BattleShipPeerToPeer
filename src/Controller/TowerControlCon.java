@@ -15,7 +15,7 @@ public class TowerControlCon implements TowerControl {
 
     @Override
     public void onCallback() {
-
+     this.actionObserver.onCallback();
     }
 
     @Override
