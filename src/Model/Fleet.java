@@ -79,7 +79,14 @@ public class Fleet {
         map.put(false, null);
         return map;
     }
-
+   public void removeShip(Ship ship) {
+    boolean isRemoved=   aliveShips.removeIf(currentShip -> {
+           return currentShip.getCoordinate().equals(ship.getCoordinate());
+       });
+    if(isRemoved){
+        this.notifyAlliesTowers("white",ship.getCoordinate().getxCoordinate(),ship.getCoordinate().getyCoordinate());
+    }
+   }
     public void beingAttacked(Ship ship) {
 
         aliveShips.remove(ship);

@@ -7,6 +7,8 @@ import Model.Ship;
 import Network.ConnectionManager;
 import Network.Request;
 
+import java.util.Map;
+
 public class PlaceShip {
 
     private Fleet fleet;
@@ -26,6 +28,13 @@ public class PlaceShip {
         if(fleet.isLocalReady())
             return;
         Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
+
+        Map<Boolean,Ship> map=fleet.isShipThere(coordinate);
+        if(map.containsKey(true)){
+            Ship ship =map.get(true);
+            fleet.removeShip(ship);
+            return;
+        }
         Ship ship=new Ship(coordinate);
 
          this.fleet.addShip(ship);
