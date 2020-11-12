@@ -1,7 +1,5 @@
 package Model;
 
-import Controller.TowerControl;
-
 import java.util.*;
 
 public class Fleet {
@@ -11,7 +9,7 @@ public class Fleet {
     private List<Ship> destroyedShips;
     private List<TowerControl> enemiesTowers;
     private List<TowerControl> alliesTowers;
-    private Roles roles;
+
 
     private Fleet() {
         aliveShips = new ArrayList<>();
@@ -31,9 +29,6 @@ public class Fleet {
     public void registerAlliesTowers(TowerControl towerControl){
         this.alliesTowers.add(towerControl);
     }
-    public void registerRoles(Roles roles){
-        this.roles=roles;
-    }
     public void addShip(Coordinate coordinate) {
 
         Ship ship = new Ship(coordinate);
@@ -47,13 +42,6 @@ public class Fleet {
         ship.setFleet(this);
         this.notifyAlliesTowers("blue", ship.getCoordinate().getxCoordinate(),
                 ship.getCoordinate().getyCoordinate());
-        this.roles.placeShip();
-        if (roles.startGame()) {
-            Iterator<TowerControl> iterator = this.enemiesTowers.iterator();
-        while(iterator.hasNext()){
-            iterator.next().startGame();
-        }
-        }
     }
 
     public int getNumberOfDestroyedShips() {
@@ -74,7 +62,7 @@ public class Fleet {
             if (coordinate.equals(shipCoordinate)) {
                 map.put(true, ship);
                 System.out.println("I find ship here");
-                roles.disLocalShip();
+
             }
         }
         map.put(false, null);
@@ -138,35 +126,7 @@ public class Fleet {
 
     }
 
-    public void riseRemoteReadiness(){
-        roles.riseRemoteReadiness();
-    }
 
-    public boolean isGameStart(){
-        return this.roles.startGame();
-    }
-    public boolean isLocalReady(){
-        return this.roles.isLocalReady();
-    }
-    public void destroyRemotedShips(){
-        this.roles.destroyRemoteShip();
-    }
-    public void numRemoteAttack(){
-        this.roles.numRemoteAttack();
-    }
-    public  boolean isGameEnd(){
-        return this.roles.endGame();
-    }
-    public boolean amIWin(){
-
-        return this.roles.amIWine();
-    }
-    public void increaseLocalAttempt(){
-        this.roles.numLocalAttack();
-    }
-   public int limitOfCounters(){
-        return this.roles.numberOfLimitAttack();
-   }
 }
 
 

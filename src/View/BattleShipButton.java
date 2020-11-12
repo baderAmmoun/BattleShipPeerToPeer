@@ -1,6 +1,6 @@
 package View;
 
-import Controller.TowerControl;
+import Model.TowerControl;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 

@@ -2,6 +2,7 @@ package Controller;
 
 import Configuration.Config;
 import Model.Fleet;
+import Model.Referee;
 import Network.ConnectionManager;
 import Network.Request;
 import View.BattleShipButton;
@@ -12,11 +13,11 @@ public class Strike {
 
     public Strike(BattleShipButton ship) {
 
-        if(numOfCount>=Fleet.getFleet().limitOfCounters())
+        if(numOfCount>=Referee.getInstance().limitOfCounters())
             return;
-        Fleet.getFleet().increaseLocalAttempt();
-        if(Fleet.getFleet().isGameEnd()){
-            BattleViewClassic.getInstance().EndGame(Fleet.getFleet().amIWin());
+        Referee.getInstance().increaseLocalAttempt();
+        if(Referee.getInstance().isGameEnd()){
+            BattleViewClassic.getInstance().EndGame(Referee.getInstance().amIWin());
             System.out.println("the game is end");
         }
         Config config= null;

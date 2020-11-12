@@ -1,9 +1,7 @@
 package Controller;
 
 import Configuration.Config;
-import Model.Coordinate;
-import Model.Fleet;
-import Model.Ship;
+import Model.*;
 import Network.ConnectionManager;
 import Network.Request;
 
@@ -12,19 +10,28 @@ import java.util.Map;
 public class PlaceShip {
 
     private Fleet fleet;
+    private Referee referee;
 
     public PlaceShip(){
         this.fleet=Fleet.getFleet();
+        this.referee=Referee.getInstance();
+        this.referee.registerRoles(new ClassicRoles());
 
     }
 
     public void registerTower(TowerControl towerControl){
 
        fleet.registerAlliesTowers(towerControl);
+
+    }
+    public void registerAudience(Audience audience){
+
+        referee.registerAudience(audience);
+
     }
 
     public void placeShip(int xCoordinate, int yCoordinate){
-        if(fleet.isLocalReady())
+        if(referee.isLocalReady())
             return;
         Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
 
@@ -37,7 +44,11 @@ public class PlaceShip {
         Ship ship=new Ship(coordinate);
 
          this.fleet.addShip(ship);
-        if (this.fleet.isLocalReady()){
+         this.referee.placeShip();
+         if(this.referee.startGame()){
+             this.referee.notifyOnStartAudience();
+         }
+        if (this.referee.isLocalReady()){
             Config config= null;
             try {
                 config = Config.getConfig();

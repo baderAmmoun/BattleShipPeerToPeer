@@ -4,7 +4,8 @@ import Configuration.Config;
 import Controller.BattleShipProtocol;
 import Controller.PlaceShip;
 import Controller.Strike;
-import Controller.TowerControl;
+import Model.Audience;
+import Model.TowerControl;
 import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -18,7 +19,7 @@ import javafx.scene.text.Font;
 import java.util.Iterator;
 
 
-public class BattleViewClassic implements BattleViewFactory, TowerControl {
+public class BattleViewClassic implements BattleViewFactory, TowerControl, Audience {
 
    private static BattleViewClassic battleViewClassic;
    private BorderPane layout;
@@ -36,6 +37,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         this.placeShip = new PlaceShip();
         BattleShipProtocol.registerTowerControl(this);
         placeShip.registerTower(this);
+        placeShip.registerAudience(this);
     }
     public static BattleViewClassic getInstance(){
         if (battleViewClassic==null) {
@@ -249,6 +251,12 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
 
         });
     }
+
+    @Override
+    public void endGame() {
+
+    }
+
     public void EndGame(boolean amWin){
 
         this.layout.getRight().setDisable(true);

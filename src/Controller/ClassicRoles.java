@@ -1,4 +1,6 @@
-package Model;
+package Controller;
+
+import Model.Roles;
 
 public class ClassicRoles implements Roles {
 
