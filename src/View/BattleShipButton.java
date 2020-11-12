@@ -30,7 +30,7 @@ public class BattleShipButton extends Button implements TowerControl {
     }
 
     @Override
-    public void OnAction() {
+    public void OnAction(int size) {
         System.out.println("I will print here from ui");
     }
 
@@ -41,7 +41,16 @@ public class BattleShipButton extends Button implements TowerControl {
 
     @Override
     public void changeColor(String color,int x,int y) {
-        Platform.runLater(() -> this.setStyle("-fx-background-color:"+color));
+
+        if (this.xCoordinate == x && this.yCoordinate == y) {
+
+
+            Platform.runLater(() -> {
+                        this.setStyle("-fx-background-color:" + color);
+
+                    }
+            );
+        }
 
     }
 

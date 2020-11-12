@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.TowerControl;
+
 import java.util.*;
 
 public class Fleet {
@@ -83,7 +84,8 @@ public class Fleet {
     boolean isRemoved=   aliveShips.removeIf(currentShip -> {
            return currentShip.getCoordinate().equals(ship.getCoordinate());
        });
-    if(isRemoved){
+
+       if(isRemoved){
         this.notifyAlliesTowers("white",ship.getCoordinate().getxCoordinate(),ship.getCoordinate().getyCoordinate());
     }
    }
@@ -110,7 +112,7 @@ public class Fleet {
         while (iterator.hasNext()) {
 
             TowerControl towerControl = (TowerControl) iterator.next();
-            towerControl.OnAction();
+            towerControl.OnAction(this.aliveShips.size());
             towerControl.changeColor(color, x, y);
         }
 

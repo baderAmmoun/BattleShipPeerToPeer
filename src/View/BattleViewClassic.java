@@ -137,7 +137,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         }
 
         BattleShipButton ship = new BattleShipButton(numRows, numCols, isShout);
-        //ship.setMaxSize(20,6);
+        ship.setStyle("-fx-background-color:white");
         ship.setMinWidth(20);
         ship.setPrefWidth(20);
         ship.setMaxWidth(20);
@@ -164,11 +164,11 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
     }
 
     @Override
-    public void OnAction() {
+    public void OnAction(int size) {
         int count =Integer.parseInt(intactShips.getText());
         System.out.println("the count is"+ count);
 
-        intactShips.setText(Integer.toString(++count));
+        intactShips.setText(Integer.toString(size));
     }
 
     @Override
