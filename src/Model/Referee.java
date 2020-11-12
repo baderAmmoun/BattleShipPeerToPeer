@@ -61,4 +61,7 @@ public class Referee {
   public void notifyOnStartAudience(){
         this.audience.startGame();
   }
+  public void retreatShip(){
+        this.roles.retreatShip();
+  }
 }

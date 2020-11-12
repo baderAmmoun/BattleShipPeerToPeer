@@ -39,6 +39,7 @@ public class PlaceShip {
         if(map.containsKey(true)){
             Ship ship =map.get(true);
             fleet.removeShip(ship);
+            referee.retreatShip();
             return;
         }
         Ship ship=new Ship(coordinate);

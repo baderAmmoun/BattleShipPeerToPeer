@@ -60,6 +60,11 @@ public class ClassicRoles implements Roles {
     }
 
     @Override
+    public void retreatShip() {
+        this.numLocalShips--;
+    }
+
+    @Override
     public void destroyRemoteShip() {
 
         this.numRemoteDisShips++;

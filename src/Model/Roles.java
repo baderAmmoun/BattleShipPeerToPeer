@@ -12,6 +12,7 @@ public interface Roles {
     public int numberOfLimitAttack();
     public boolean amIWine();
     public void placeShip();
+    public void retreatShip();
     public void destroyRemoteShip();
     public void disLocalShip();
     public void numLocalAttack();
