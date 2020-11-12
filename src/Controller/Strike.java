@@ -29,10 +29,7 @@ public class Strike {
         int remotePort=Integer.parseInt(config.getValue("remotePort"));
         String sender=config.getValue("sender");
         String receiver=config.getValue("receiver");
-        System.out.println("this line has been added in the second instance");
-        System.out.println("the remote port of the port :"+port+":"+remotePort);
         ConnectionManager.getConnectionManger().sendMessage(new Request(ship.getXCoordinate(),ship.getYCoordinate(),sender,receiver),remotePort);
-
         numOfCount++;
     }
 

@@ -24,7 +24,6 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
 
     @Override
     public void handleStrikeRequest(Request request,Respond respond) {
-       System.out.println("here by the real implementation of the handle request ");
         Fleet fleet=Fleet.getFleet();
         fleet.numRemoteAttack();
         Coordinate coordinate=new Coordinate(request.getX(),request.getY());
@@ -61,7 +60,6 @@ public class BattleShipProtocol extends AbstractBattleShipProtocol {
      fleet.riseRemoteReadiness();
      if(fleet.isGameStart()) {
          BattleViewClassic.getInstance().startGame();
-         System.out.println("I will disable the panel");
      }
     }
 

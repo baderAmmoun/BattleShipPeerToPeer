@@ -24,7 +24,6 @@ public class PlaceShip {
     }
 
     public void placeShip(int xCoordinate, int yCoordinate){
-        System.out.println("I will plcae one ship");
         if(fleet.isLocalReady())
             return;
         Coordinate coordinate=new Coordinate(xCoordinate,yCoordinate);
