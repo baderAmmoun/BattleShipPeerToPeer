@@ -117,7 +117,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
 
     @Override
     public Scene getScene() {
-        return new Scene(this.layout, 500, 400);
+        return new Scene(this.layout, 550, 600);
 
     }
 
@@ -137,7 +137,14 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
         }
 
         BattleShipButton ship = new BattleShipButton(numRows, numCols, isShout);
-        ship.setMaxSize(4,4);
+        //ship.setMaxSize(20,6);
+        ship.setMinWidth(20);
+        ship.setPrefWidth(20);
+        ship.setMaxWidth(20);
+        ship.setMinHeight(25);
+        ship.setMaxHeight(25);
+        ship.setPrefHeight(25);
+
         ship.setOnAction(event -> {
             BattleShipButton currentShip = (BattleShipButton) event.getSource();
             if (!currentShip.isShout()) {
@@ -148,6 +155,7 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
             else{
                 new Strike(ship);
             }
+
         });
         System.out.println("the number of rows is " + numRows + "and the number of cols is " + numCols);
         grid.add(ship, numRows, numCols);
@@ -207,7 +215,8 @@ public class BattleViewClassic implements BattleViewFactory, TowerControl {
 
                Platform.runLater(() -> {
                            battleShipButton.setText(Integer.toString(num));
-                   battleShipButton.setMaxSize(1,1);
+                           battleShipButton.setStyle("-fx-font-size:10");
+                   // battleShipButton.setMaxSize(1,1);
 
 
                        }
