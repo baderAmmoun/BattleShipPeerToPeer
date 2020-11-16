@@ -12,11 +12,11 @@ public class Coordinate implements Serializable {
         this.yCoordinate = yCoordinate;
     }
 
-    public int getxCoordinate() {
+    public int getXCoordinate() {
         return xCoordinate;
     }
 
-    public int getyCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
     }
 

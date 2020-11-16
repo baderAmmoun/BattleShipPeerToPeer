@@ -34,14 +34,14 @@ public class Fleet {
         Ship ship = new Ship(coordinate);
         aliveShips.add(ship);
         ship.setFleet(this);
-        this.notifyAlliesTowers("blue",coordinate.getxCoordinate(),coordinate.getyCoordinate());
+        this.notifyAlliesTowers("blue",coordinate.getXCoordinate(),coordinate.getYCoordinate());
     }
 
     public void addShip(Ship ship) {
         aliveShips.add(ship);
         ship.setFleet(this);
-        this.notifyAlliesTowers("blue", ship.getCoordinate().getxCoordinate(),
-                ship.getCoordinate().getyCoordinate());
+        this.notifyAlliesTowers("blue", ship.getCoordinate().getXCoordinate(),
+                ship.getCoordinate().getYCoordinate());
     }
 
     public int getNumberOfDestroyedShips() {
@@ -74,7 +74,7 @@ public class Fleet {
        });
 
        if(isRemoved){
-        this.notifyAlliesTowers("white",ship.getCoordinate().getxCoordinate(),ship.getCoordinate().getyCoordinate());
+        this.notifyAlliesTowers("white",ship.getCoordinate().getXCoordinate(),ship.getCoordinate().getYCoordinate());
     }
    }
     public void beingAttacked(Ship ship) {
@@ -115,9 +115,9 @@ public class Fleet {
             boolean yNeighbor=false;
             Ship ship = (Ship) iterator.next();
             Coordinate shipCoordinate = ship.getCoordinate();
-            if (shipCoordinate.getxCoordinate() == coordinate.getxCoordinate() + 1 || shipCoordinate.getxCoordinate() == coordinate.getxCoordinate() - 1 || shipCoordinate.getxCoordinate() == coordinate.getxCoordinate())
+            if (shipCoordinate.getXCoordinate() == coordinate.getXCoordinate() + 1 || shipCoordinate.getXCoordinate() == coordinate.getXCoordinate() - 1 || shipCoordinate.getXCoordinate() == coordinate.getXCoordinate())
                 xNeighbor=true;
-            if (shipCoordinate.getyCoordinate() == coordinate.getyCoordinate() + 1 || shipCoordinate.getyCoordinate() == coordinate.getyCoordinate() - 1|| shipCoordinate.getyCoordinate() == coordinate.getyCoordinate())
+            if (shipCoordinate.getYCoordinate() == coordinate.getYCoordinate() + 1 || shipCoordinate.getYCoordinate() == coordinate.getYCoordinate() - 1|| shipCoordinate.getYCoordinate() == coordinate.getYCoordinate())
                 yNeighbor=true;
             if(xNeighbor==true && yNeighbor==true)
                 counter++;

@@ -15,7 +15,7 @@ public class Ship {
 
     public int[] shoot(Coordinate coordinate) {
 
-        return new int[]{this.coordinate.getxCoordinate(), this.coordinate.getyCoordinate()};
+        return new int[]{this.coordinate.getXCoordinate(), this.coordinate.getYCoordinate()};
 
     }
 
